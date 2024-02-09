@@ -1,16 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwvxi5mqbiujd"]
+[gd_scene load_steps=6 format=3 uid="uid://dwvxi5mqbiujd"]
 
 [ext_resource type="Script" path="res://MainScripts/Main.gd" id="1_2o1vb"]
 [ext_resource type="Script" path="res://MainScripts/Grid.gd" id="2_jayqm"]
 [ext_resource type="Script" path="res://MainScripts/Camera.gd" id="3_da6jb"]
-[ext_resource type="Script" path="res://MainScripts/Lote.gd" id="4_bdxag"]
+[ext_resource type="Script" path="res://LoteForm.gd" id="4_ky7rv"]
+[ext_resource type="Script" path="res://MainScripts/HTTP_TEST.gd" id="4_ty05l"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_2o1vb")
 
 [node name="Grid" type="Node2D" parent="."]
+top_level = true
+z_index = 1
+position = Vector2(357, 84)
 script = ExtResource("2_jayqm")
-show_debug = true
+height = 20
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -18,54 +22,57 @@ anchor_mode = 0
 script = ExtResource("3_da6jb")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 offset = Vector2(2.08165e-12, 2.08165e-12)
 transform = Transform2D(1, 0, 0, 1, 2.08165e-12, 2.08165e-12)
 
-[node name="GUI" type="Control" parent="CanvasLayer"]
+[node name="LoteForm" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("4_ky7rv")
 
-[node name="BaseButtons" type="Control" parent="CanvasLayer/GUI"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/GUI/BaseButtons"]
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoteForm"]
 layout_mode = 0
-offset_right = 105.0
-offset_bottom = 171.0
+offset_left = 24.0
+offset_top = 212.0
+offset_right = 173.0
+offset_bottom = 348.0
 scale = Vector2(2, 2)
 
-[node name="Lote" type="Button" parent="CanvasLayer/GUI/BaseButtons/HBoxContainer"]
+[node name="Crear Lote" type="Button" parent="CanvasLayer/LoteForm/HBoxContainer"]
 layout_mode = 2
-text = "Lote"
-script = ExtResource("4_bdxag")
+text = "Nuevo Lote"
 
-[node name="Grano" type="Button" parent="CanvasLayer/GUI/BaseButtons/HBoxContainer"]
+[node name="Nombre" type="LineEdit" parent="CanvasLayer/LoteForm/HBoxContainer"]
 layout_mode = 2
-text = "Grano"
+placeholder_text = "Nombre"
 
-[node name="Tratamiento" type="Button" parent="CanvasLayer/GUI/BaseButtons/HBoxContainer"]
+[node name="Area" type="LineEdit" parent="CanvasLayer/LoteForm/HBoxContainer"]
 layout_mode = 2
-text = "Tratamiento"
+placeholder_text = "Area"
 
-[node name="Contratista" type="Button" parent="CanvasLayer/GUI/BaseButtons/HBoxContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer/LoteForm/HBoxContainer"]
 layout_mode = 2
-text = "Contratista"
 
-[node name="Producto" type="Button" parent="CanvasLayer/GUI/BaseButtons/HBoxContainer"]
+[node name="Cancelar" type="Button" parent="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Producto"
+text = "Cancelar"
 
-[node name="ConstructButtons" type="Control" parent="CanvasLayer/GUI"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Aceptar" type="Button" parent="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Aceptar"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
-[connection signal="pressed" from="CanvasLayer/GUI/BaseButtons/HBoxContainer/Lote" to="CanvasLayer/GUI/BaseButtons/HBoxContainer/Lote" method="_on_pressed"]
-[connection signal="request_completed" from="HTTPRequest" to="CanvasLayer/GUI/BaseButtons/HBoxContainer/Lote" method="_on_request_completed"]
+[node name="HTPP_TEST" type="Button" parent="."]
+visible = false
+offset_left = 33.0
+offset_top = 37.0
+offset_right = 138.0
+offset_bottom = 68.0
+text = "Lote"
+script = ExtResource("4_ty05l")
+
+[connection signal="request_completed" from="HTTPRequest" to="HTPP_TEST" method="_on_request_completed"]
+[connection signal="pressed" from="HTPP_TEST" to="HTPP_TEST" method="_on_pressed"]

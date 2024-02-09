@@ -1,6 +1,7 @@
 class_name CustomTile extends Button
 
 @export var id = ''
+const UNSELECTED_GRASS = preload("res://unselected_grass.tres")
 
 func _init(arg):
 	id = arg
@@ -8,9 +9,11 @@ func _init(arg):
 
 func _ready():
 	self.connect('mouse_entered', entered_listener)
+	self.connect('pressed', entered_listener)
+	self.set_theme(UNSELECTED_GRASS)
+	set_button_mask(MOUSE_BUTTON_MASK_LEFT | MOUSE_BUTTON_MASK_RIGHT)
 	set_action_mode(0)
 
-# ver que si clickeo sin entrar no hace el evento
 func entered_listener():
 	if Input.is_mouse_button_pressed( 1 ):
 		self.set_pressed(true)
@@ -19,6 +22,6 @@ func entered_listener():
 
 func _toggled(toggled):
 	if toggled:
-		self.text = 'a'
+		self.text = ''
 	else:
 		self.text = ''

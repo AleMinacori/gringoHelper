@@ -1,10 +1,9 @@
 class_name Grid
 extends Node2D
 
-@export var width: int = 36
-@export var height: int = 20
+@export var width: int = 25
+@export var height: int = 15
 @export var cell_size: int = 32
-@export var show_debug: bool = false
 
 var grid: Dictionary = {}
 
