@@ -18,6 +18,7 @@ anchor_mode = 0
 script = ExtResource("3_da6jb")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 offset = Vector2(2.08165e-12, 2.08165e-12)
 transform = Transform2D(1, 0, 0, 1, 2.08165e-12, 2.08165e-12)
 
@@ -63,19 +64,6 @@ text = "Producto"
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="LoteForm" type="VBoxContainer" parent="CanvasLayer/GUI"]
-clip_contents = true
-layout_mode = 0
-offset_left = 381.0
-offset_top = 126.0
-offset_right = 421.0
-offset_bottom = 166.0
-scale = Vector2(15.5862, 12.36)
-
-[node name="TextEdit" type="TextEdit" parent="CanvasLayer/GUI/LoteForm"]
-layout_mode = 2
-placeholder_text = "Type here"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
