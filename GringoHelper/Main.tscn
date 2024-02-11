@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://dwvxi5mqbiujd"]
 
-[ext_resource type="Script" path="res://MainScripts/Main.gd" id="1_2o1vb"]
+[ext_resource type="Script" path="res://MainScripts/LoteEdition.gd" id="1_u0q8k"]
 [ext_resource type="Script" path="res://MainScripts/Grid.gd" id="2_jayqm"]
 [ext_resource type="Script" path="res://MainScripts/Camera.gd" id="3_da6jb"]
 [ext_resource type="Script" path="res://LoteForm.gd" id="4_ky7rv"]
 [ext_resource type="Script" path="res://MainScripts/HTTP_TEST.gd" id="4_ty05l"]
 
-[node name="Main" type="Node2D"]
-script = ExtResource("1_2o1vb")
+[node name="LoteEdition" type="Node2D"]
+script = ExtResource("1_u0q8k")
 
 [node name="Grid" type="Node2D" parent="."]
 top_level = true
@@ -40,7 +40,7 @@ offset_right = 173.0
 offset_bottom = 348.0
 scale = Vector2(2, 2)
 
-[node name="Crear Lote" type="Button" parent="CanvasLayer/LoteForm/HBoxContainer"]
+[node name="CrearLote" type="Button" parent="CanvasLayer/LoteForm/HBoxContainer"]
 layout_mode = 2
 text = "Nuevo Lote"
 
@@ -74,5 +74,9 @@ offset_bottom = 68.0
 text = "Lote"
 script = ExtResource("4_ty05l")
 
+[connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/CrearLote" to="Grid" method="_on_crear_lote_pressed"]
+[connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/CrearLote" to="CanvasLayer/LoteForm" method="_on_crear_lote_pressed"]
+[connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer/Cancelar" to="CanvasLayer/LoteForm" method="_on_cancelar_pressed"]
+[connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer/Aceptar" to="Grid" method="_on_aceptar_pressed"]
+[connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer/Aceptar" to="CanvasLayer/LoteForm" method="_on_aceptar_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="HTPP_TEST" method="_on_request_completed"]
-[connection signal="pressed" from="HTPP_TEST" to="HTPP_TEST" method="_on_pressed"]

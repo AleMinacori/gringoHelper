@@ -15,10 +15,13 @@ func _ready():
 	set_action_mode(0)
 
 func entered_listener():
-	if Input.is_mouse_button_pressed( 1 ):
-		self.set_pressed(true)
-	if Input.is_mouse_button_pressed( 2 ):
-		self.set_pressed(false)
+	if self.is_disabled():
+		return
+	else:
+		if Input.is_mouse_button_pressed( 1 ):
+			self.set_pressed(true)
+		if Input.is_mouse_button_pressed( 2 ):
+			self.set_pressed(false)
 
 func _toggled(toggled):
 	if toggled:
