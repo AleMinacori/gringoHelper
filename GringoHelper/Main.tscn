@@ -47,21 +47,29 @@ text = "Nuevo Lote"
 [node name="Nombre" type="LineEdit" parent="CanvasLayer/LoteForm/HBoxContainer"]
 layout_mode = 2
 placeholder_text = "Nombre"
+editable = false
 
 [node name="Area" type="LineEdit" parent="CanvasLayer/LoteForm/HBoxContainer"]
 layout_mode = 2
 placeholder_text = "Area"
+editable = false
 
 [node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer/LoteForm/HBoxContainer"]
 layout_mode = 2
 
 [node name="Cancelar" type="Button" parent="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+disabled = true
 text = "Cancelar"
 
 [node name="Aceptar" type="Button" parent="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+disabled = true
 text = "Aceptar"
+
+[node name="Previsualizar" type="Button" parent="CanvasLayer/LoteForm/HBoxContainer"]
+layout_mode = 2
+text = "Previsualizar"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
@@ -79,4 +87,5 @@ script = ExtResource("4_ty05l")
 [connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer/Cancelar" to="CanvasLayer/LoteForm" method="_on_cancelar_pressed"]
 [connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer/Aceptar" to="Grid" method="_on_aceptar_pressed"]
 [connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer/Aceptar" to="CanvasLayer/LoteForm" method="_on_aceptar_pressed"]
+[connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/Previsualizar" to="Grid" method="_on_previsualizar_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="HTPP_TEST" method="_on_request_completed"]
