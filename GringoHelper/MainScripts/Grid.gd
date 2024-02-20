@@ -1,5 +1,4 @@
-class_name Grid
-extends Node2D
+class_name Grid extends Node2D
 
 @export var width: int = 25
 @export var height: int = 15
@@ -9,8 +8,7 @@ enum states {DEFAULT, EDITING, SHOWING}
 
 var grid: Dictionary = {}
 var state = states.DEFAULT
-@onready var lote_form = $"../CanvasLayer/LoteForm"
-
+@onready var nuevo_lote_form = $"../../Sidebar/CamposContainer/NuevoCampoForm/NuevoLoteForm"
 
 var lotes: Array[Lote] = []
 
@@ -110,10 +108,9 @@ func generate_textureButton(size, pixels, top, left):
 func create_lote(textureButton: TextureButton):
 	var lote = Lote.new()
 	lote.textureButton = textureButton
-	lote.nombre = lote_form.nombre.text
-	lote.area = lote_form.area.text
+	lote.nombre = nuevo_lote_form.nombre.text
+	lote.area = nuevo_lote_form.area.text
 	lotes.append(lote)
-
 
 func _on_previsualizar_pressed():
 	toggle_state(states.SHOWING)
@@ -128,3 +125,8 @@ func generate_img(size, pixels, top, left, color):
 		pix.fill(color)
 		img.blend_rect(pix, rect, pos)
 	return img
+
+
+func _on_cancelar_pressed():
+	# limpiar los botones seleccionados
+	pass # Replace with function body.

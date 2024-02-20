@@ -1,14 +1,18 @@
-class_name LoteForm extends Control
+class_name NuevoCampoForm extends VBoxContainer
 
-@onready var nombre = $HBoxContainer/Nombre
-@onready var area = $HBoxContainer/Area
-@onready var v_box_container = $HBoxContainer/VBoxContainer
-@onready var crear_lote = $"HBoxContainer/CrearLote"
-@onready var aceptar = $HBoxContainer/VBoxContainer/Aceptar
-@onready var cancelar = $HBoxContainer/VBoxContainer/Cancelar
+@onready var grid = $"../../../Panel/Grid"
+
+@onready var crear_lote = $NuevoLoteForm/CrearLote
+@onready var nombre = $NuevoLoteForm/Nombre
+@onready var area = $NuevoLoteForm/Area
+@onready var v_box_container = $NuevoLoteForm/VBoxContainer
+@onready var aceptar = $NuevoLoteForm/VBoxContainer/Aceptar
+@onready var cancelar = $NuevoLoteForm/VBoxContainer/Cancelar
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	grid.generate_grid()
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,3 +44,8 @@ func _on_crear_lote_pressed():
 	aceptar.disabled = false
 	cancelar.disabled = false
 
+func _on_visibility_changed():
+	if self.visible:
+		grid.visible = true
+	else:
+		grid.visible = false

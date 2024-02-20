@@ -8,7 +8,7 @@ var textureButton: TextureButton
 func _ready():
 	add_child(textureButton)
 	textureButton.connect('pressed', handle_pressed)
-	pass # Replace with function body.
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
