@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://dybxo3thepgxb"]
+[gd_scene load_steps=9 format=3 uid="uid://dybxo3thepgxb"]
 
-[ext_resource type="Script" path="res://Sidebar.gd" id="1_40hdf"]
-[ext_resource type="Script" path="res://CamposContainer.gd" id="2_coukp"]
-[ext_resource type="Script" path="res://NuevoCampoForm.gd" id="3_nw61d"]
-[ext_resource type="Script" path="res://NuevoLoteForm.gd" id="4_hf3jl"]
+[ext_resource type="Script" path="res://scripts/Sidebar/Sidebar.gd" id="1_40hdf"]
+[ext_resource type="Script" path="res://scripts/Sidebar/CamposContainer.gd" id="2_coukp"]
+[ext_resource type="Script" path="res://scripts/Sidebar/NuevoCampoForm.gd" id="3_nw61d"]
+[ext_resource type="Script" path="res://scripts/Sidebar/NuevoLoteForm.gd" id="4_hf3jl"]
 [ext_resource type="Texture2D" uid="uid://b6s8x0t4o5dlr" path="res://icon.svg" id="4_illj2"]
-[ext_resource type="Script" path="res://Panel.gd" id="5_mkysu"]
-[ext_resource type="Script" path="res://MainScripts/Grid.gd" id="5_sb2sw"]
+[ext_resource type="Script" path="res://scripts/Panel/Panel.gd" id="5_mkysu"]
+[ext_resource type="Script" path="res://scripts/Panel/Grid.gd" id="5_sb2sw"]
+[ext_resource type="Script" path="res://CamposList.gd" id="7_u3voc"]
 
 [node name="Sidebar" type="Node2D"]
 
@@ -166,7 +167,7 @@ offset_right = 1195.0
 offset_bottom = 795.0
 script = ExtResource("5_mkysu")
 
-[node name="CamposList" type="ItemList" parent="Panel"]
+[node name="CamposList" type="ItemList" parent="Panel" groups=["Persist"]]
 visible = false
 layout_mode = 0
 offset_left = 50.0
@@ -184,6 +185,7 @@ item_1/text = "Campo 2"
 item_1/icon = ExtResource("4_illj2")
 item_2/text = "Campo 3"
 item_2/icon = ExtResource("4_illj2")
+script = ExtResource("7_u3voc")
 
 [node name="Grid" type="Node2D" parent="Panel"]
 visible = false
@@ -207,4 +209,5 @@ height = 20
 [connection signal="pressed" from="Sidebar/CamposContainer/NuevoCampoForm/NuevoLoteForm/VBoxContainer/Aceptar" to="Sidebar/CamposContainer/NuevoCampoForm" method="_on_aceptar_pressed"]
 [connection signal="pressed" from="Sidebar/CamposContainer/NuevoCampoForm/NuevoLoteForm/VBoxContainer/Aceptar" to="Panel/Grid" method="_on_aceptar_pressed"]
 [connection signal="pressed" from="Sidebar/CamposContainer/NuevoCampoForm/NuevoLoteForm/Previsualizar" to="Panel/Grid" method="_on_previsualizar_pressed"]
+[connection signal="pressed" from="Sidebar/CamposContainer/NuevoCampoForm/Crear" to="Sidebar/CamposContainer/NuevoCampoForm" method="_on_crear_pressed"]
 [connection signal="pressed" from="Sidebar/CamposContainer/NuevoCampoForm/Atras" to="Sidebar/CamposContainer" method="_on_nuevo_atras_pressed"]
