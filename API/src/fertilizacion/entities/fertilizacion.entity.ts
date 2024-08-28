@@ -4,10 +4,11 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  DeleteDateColumn,
 } from 'typeorm';
 import { Ciclo } from '../../ciclo/entities/ciclo.entity';
-import { Producto } from '../../producto/entities/producto.entity';
-import { ZCicloContratistaFertilizacion } from '../../z-ciclo-contratista-fertilizacion/entities/z-ciclo-contratista-fertilizacion.entity';
+import { Contratista } from '../../contratista/entities/contratista.entity';
+import { Aplicacion } from '../../aplicacion/entities/aplicacion.entity';
 
 @Entity()
 export class Fertilizacion {
@@ -15,38 +16,35 @@ export class Fertilizacion {
   id: number;
 
   @Column()
-  date: string;
+  startDate: Date;
 
   @Column()
-  application: number;
+  endDate: Date;
 
   @Column()
-  costProduct: number;
+  contractorCost: number;
 
-  @ManyToOne(() => Producto, (producto) => producto.fertilizaciones)
-  producto: Producto;
+  @OneToMany(() => Aplicacion, (aplicacion) => aplicacion.fertilizacion)
+  aplicaciones: Aplicacion[];
+
+  @ManyToOne(() => Contratista, (contratista) => contratista.fertilizaciones)
+  contratista: Contratista;
 
   @ManyToOne(() => Ciclo, (ciclo) => ciclo.fertilizaciones)
   ciclo: Ciclo;
 
-  @OneToMany(
-    () => ZCicloContratistaFertilizacion,
-    (zCicloContratistaFertilizacion) =>
-      zCicloContratistaFertilizacion.fertilizacion,
-  )
-  zCicloContratistaFertilizaciones: ZCicloContratistaFertilizacion[];
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   constructor(
-    date: string,
-    application: number,
-    costProduct: number,
-    producto: Producto,
+    startDate: Date,
+    contractorCost: number,
+    contratista: Contratista,
     ciclo: Ciclo,
   ) {
-    this.date = date;
-    this.application = application;
-    this.costProduct = costProduct;
-    this.producto = producto;
+    this.startDate = startDate;
+    this.contractorCost = contractorCost;
+    this.contratista = contratista;
     this.ciclo = ciclo;
   }
 }

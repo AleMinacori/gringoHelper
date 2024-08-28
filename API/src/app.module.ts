@@ -23,13 +23,10 @@ import { ImpuestoModule } from './impuesto/impuesto.module';
 import { SeguroModule } from './seguro/seguro.module';
 import { ContratistaModule } from './contratista/contratista.module';
 import { TransporteModule } from './transporte/transporte.module';
-import { ZCicloContratistaSiembraModule } from './z-ciclo-contratista-siembra/z-ciclo-contratista-siembra.module';
-import { ZCicloContratistaCosechaModule } from './z-ciclo-contratista-cosecha/z-ciclo-contratista-cosecha.module';
-import { ZCicloContratistaFumigacionModule } from './z-ciclo-contratista-fumigacion/z-ciclo-contratista-fumigacion.module';
-import { ZCicloContratistaFertilizacionModule } from './z-ciclo-contratista-fertilizacion/z-ciclo-contratista-fertilizacion.module';
-import { ZCicloContratistaGastoModule } from './z-ciclo-contratista-gasto/z-ciclo-contratista-gasto.module';
-import { ZCicloContratistaTransporteModule } from './z-ciclo-contratista-transporte/z-ciclo-contratista-transporte.module';
-import { YCicloLoteModule } from './y-ciclo-lote/y-ciclo-lote.module';
+import { CampoModule } from './campo/campo.module';
+import { CicloImpuestoModule } from './ciclo-impuesto/ciclo-impuesto.module';
+import { AplicacionModule } from './aplicacion/aplicacion.module';
+import { CicloLoteModule } from './ciclo-lote/ciclo-lote.module';
 
 @Module({
   imports: [
@@ -57,13 +54,10 @@ import { YCicloLoteModule } from './y-ciclo-lote/y-ciclo-lote.module';
     SeguroModule,
     ContratistaModule,
     TransporteModule,
-    ZCicloContratistaSiembraModule,
-    ZCicloContratistaCosechaModule,
-    ZCicloContratistaFumigacionModule,
-    ZCicloContratistaFertilizacionModule,
-    ZCicloContratistaGastoModule,
-    ZCicloContratistaTransporteModule,
-    YCicloLoteModule,
+    CampoModule,
+    CicloImpuestoModule,
+    AplicacionModule,
+    CicloLoteModule,
   ],
   controllers: [AppController],
   providers: [AppService],

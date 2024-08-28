@@ -1,10 +1,16 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { ZCicloContratistaCosecha } from '../../z-ciclo-contratista-cosecha/entities/z-ciclo-contratista-cosecha.entity';
-import { ZCicloContratistaFertilizacion } from '../../z-ciclo-contratista-fertilizacion/entities/z-ciclo-contratista-fertilizacion.entity';
-import { ZCicloContratistaFumigacion } from '../../z-ciclo-contratista-fumigacion/entities/z-ciclo-contratista-fumigacion.entity';
-import { ZCicloContratistaGasto } from '../../z-ciclo-contratista-gasto/entities/z-ciclo-contratista-gasto.entity';
-import { ZCicloContratistaSiembra } from '../../z-ciclo-contratista-siembra/entities/z-ciclo-contratista-siembra.entity';
-import { ZCicloContratistaTransporte } from '../../z-ciclo-contratista-transporte/entities/z-ciclo-contratista-transporte.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  DeleteDateColumn,
+} from 'typeorm';
+import { Siembra } from '../../siembra/entities/siembra.entity';
+import { Cosecha } from '../../cosecha/entities/cosecha.entity';
+import { Gasto } from '../../gasto/entities/gasto.entity';
+import { Transporte } from '../../transporte/entities/transporte.entity';
+import { Fertilizacion } from '../../fertilizacion/entities/fertilizacion.entity';
+import { Fumigacion } from '../../fumigacion/entities/fumigacion.entity';
 
 @Entity()
 export class Contratista {
@@ -20,42 +26,26 @@ export class Contratista {
   @Column()
   cbu: string;
 
-  @OneToMany(
-    () => ZCicloContratistaCosecha,
-    (zCicloContratistaCosecha) => zCicloContratistaCosecha.contratista,
-  )
-  zCicloContratistaCosechas: ZCicloContratistaCosecha[];
+  @OneToMany(() => Siembra, (siembra) => siembra.contratista)
+  siembras: Siembra[];
 
-  @OneToMany(
-    () => ZCicloContratistaFertilizacion,
-    (zCicloContratistaFertilizacion) =>
-      zCicloContratistaFertilizacion.contratista,
-  )
-  zCicloContratistaFertilizaciones: ZCicloContratistaFertilizacion[];
+  @OneToMany(() => Cosecha, (cosecha) => cosecha.contratista)
+  cosechas: Cosecha[];
 
-  @OneToMany(
-    () => ZCicloContratistaFumigacion,
-    (zCicloContratistaFumigacion) => zCicloContratistaFumigacion.contratista,
-  )
-  zCicloContratistaFumigaciones: ZCicloContratistaFumigacion[];
+  @OneToMany(() => Gasto, (gasto) => gasto.contratista)
+  gastos: Gasto[];
 
-  @OneToMany(
-    () => ZCicloContratistaGasto,
-    (zCicloContratistaGasto) => zCicloContratistaGasto.contratista,
-  )
-  zCicloContratistaGastos: ZCicloContratistaGasto[];
+  @OneToMany(() => Transporte, (transporte) => transporte.contratista)
+  transportes: Transporte[];
 
-  @OneToMany(
-    () => ZCicloContratistaSiembra,
-    (zCicloContratistaSiembra) => zCicloContratistaSiembra.contratista,
-  )
-  zCicloContratistaSiembras: ZCicloContratistaSiembra[];
+  @OneToMany(() => Fertilizacion, (fertilizacion) => fertilizacion.contratista)
+  fertilizaciones: Fertilizacion[];
 
-  @OneToMany(
-    () => ZCicloContratistaTransporte,
-    (zCicloContratistaTransporte) => zCicloContratistaTransporte.contratista,
-  )
-  zCicloContratistaTransportes: ZCicloContratistaTransporte[];
+  @OneToMany(() => Fumigacion, (fumigacion) => fumigacion.contratista)
+  fumigaciones: Fumigacion[];
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   constructor(name: string, lastname: string, cbu: string) {
     this.name = name;

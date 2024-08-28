@@ -3,12 +3,12 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  OneToMany,
+  DeleteDateColumn,
 } from 'typeorm';
 import { Grano } from '../../grano/entities/grano.entity';
 import { Tratamiento } from '../../tratamiento/entities/tratamiento.entity';
 import { Ciclo } from '../../ciclo/entities/ciclo.entity';
-import { ZCicloContratistaSiembra } from '../../z-ciclo-contratista-siembra/entities/z-ciclo-contratista-siembra.entity';
+import { Contratista } from '../../contratista/entities/contratista.entity';
 
 @Entity()
 export class Siembra {
@@ -16,7 +16,10 @@ export class Siembra {
   id: number;
 
   @Column()
-  date: string;
+  startDate: Date;
+
+  @Column()
+  endDate: Date;
 
   @Column()
   density: number;
@@ -25,7 +28,10 @@ export class Siembra {
   depth: number;
 
   @Column()
-  costGrain: number;
+  seedCost: number;
+
+  @Column()
+  contractorCost: number;
 
   @ManyToOne(() => Grano, (grano) => grano.siembras)
   grano: Grano;
@@ -33,30 +39,34 @@ export class Siembra {
   @ManyToOne(() => Tratamiento, (tratamiento) => tratamiento.siembras)
   tratamiento: Tratamiento;
 
+  @ManyToOne(() => Contratista, (contratista) => contratista.siembras)
+  contratista: Contratista;
+
   @ManyToOne(() => Ciclo, (ciclo) => ciclo.siembras)
   ciclo: Ciclo;
 
-  @OneToMany(
-    () => ZCicloContratistaSiembra,
-    (zCicloContratistaSiembra) => zCicloContratistaSiembra.siembra,
-  )
-  zCicloContratistaSiembras: ZCicloContratistaSiembra[];
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   constructor(
-    date: string,
+    startDate: Date,
     density: number,
     depth: number,
-    costGrain: number,
+    seedCost: number,
+    contractorCost: number,
     tratamiento: Tratamiento,
     grano: Grano,
+    contratista: Contratista,
     ciclo: Ciclo,
   ) {
-    this.date = date;
+    this.startDate = startDate;
     this.density = density;
     this.depth = depth;
-    this.costGrain = costGrain;
+    this.seedCost = seedCost;
+    this.contractorCost = contractorCost;
     this.tratamiento = tratamiento;
     this.grano = grano;
+    this.contratista = contratista;
     this.ciclo = ciclo;
   }
 }

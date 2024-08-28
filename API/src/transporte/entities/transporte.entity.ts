@@ -3,11 +3,10 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  OneToMany,
+  DeleteDateColumn,
 } from 'typeorm';
 import { Ciclo } from '../../ciclo/entities/ciclo.entity';
-import { ZCicloContratistaSiembra } from '../../z-ciclo-contratista-siembra/entities/z-ciclo-contratista-siembra.entity';
-import { ZCicloContratistaTransporte } from '../../z-ciclo-contratista-transporte/entities/z-ciclo-contratista-transporte.entity';
+import { Contratista } from '../../contratista/entities/contratista.entity';
 
 @Entity()
 export class Transporte {
@@ -15,37 +14,47 @@ export class Transporte {
   id: number;
 
   @Column()
-  date: string;
+  startDate: Date;
 
   @Column()
-  from: string;
+  endDate: Date;
 
   @Column()
-  destination: string;
+  startPoint: string;
+
+  @Column()
+  endPoint: string;
 
   @Column()
   description: string;
 
+  @Column()
+  contractorCost: number;
+
+  @ManyToOne(() => Contratista, (contratista) => contratista.transportes)
+  contratista: Contratista;
+
   @ManyToOne(() => Ciclo, (ciclo) => ciclo.transportes)
   ciclo: Ciclo;
 
-  @OneToMany(
-    () => ZCicloContratistaTransporte,
-    (zCicloContratistaTransporte) => zCicloContratistaTransporte.transporte,
-  )
-  zCicloContratistaTransportes: ZCicloContratistaTransporte[];
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   constructor(
-    date: string,
-    from: string,
-    destination: string,
+    startDate: Date,
+    startPoint: string,
+    endPoint: string,
     description: string,
+    contractorCost: number,
+    contratista: Contratista,
     ciclo: Ciclo,
   ) {
-    this.date = date;
-    this.from = from;
-    this.destination = destination;
+    this.startDate = startDate;
+    this.startPoint = startPoint;
+    this.endPoint = endPoint;
     this.description = description;
+    this.contractorCost = contractorCost;
+    this.contratista = contratista;
     this.ciclo = ciclo;
   }
 }

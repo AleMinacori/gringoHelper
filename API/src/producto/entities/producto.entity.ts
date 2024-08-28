@@ -1,6 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Fertilizacion } from '../../fertilizacion/entities/fertilizacion.entity';
-import { Fumigacion } from '../../fumigacion/entities/fumigacion.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  DeleteDateColumn,
+} from 'typeorm';
+
+import { Aplicacion } from '../../aplicacion/entities/aplicacion.entity';
 
 @Entity()
 export class Producto {
@@ -10,17 +16,25 @@ export class Producto {
   @Column()
   name: string;
 
-  @OneToMany(() => Fertilizacion, (fertilizacion) => fertilizacion.producto)
-  fertilizaciones: Fertilizacion[];
+  @Column()
+  type: string;
 
-  @OneToMany(() => Fumigacion, (fumigacion) => fumigacion.producto)
-  fumigaciones: Fumigacion[];
+  @OneToMany(() => Aplicacion, (aplicacion) => aplicacion.producto)
+  aplicaciones: Aplicacion[];
 
-  constructor(name: string) {
+  @DeleteDateColumn()
+  deletedAt: Date;
+
+  constructor(name: string, type: string) {
     this.name = name;
+    this.type = type;
   }
 
   public setName(name: string) {
     this.name = name;
+  }
+
+  public setType(type: string) {
+    this.type = type;
   }
 }

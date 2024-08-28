@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  DeleteDateColumn,
+} from 'typeorm';
 
 import { Siembra } from '../../siembra/entities/siembra.entity';
 
@@ -18,6 +24,9 @@ export class Grano {
 
   @OneToMany(() => Siembra, (siembra) => siembra.grano)
   siembras: Siembra[];
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   constructor(type: string, brand: string, variety: string) {
     this.type = type;

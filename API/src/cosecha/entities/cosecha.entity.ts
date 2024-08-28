@@ -3,10 +3,10 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  OneToMany,
+  DeleteDateColumn,
 } from 'typeorm';
 import { Ciclo } from '../../ciclo/entities/ciclo.entity';
-import { ZCicloContratistaCosecha } from '../../z-ciclo-contratista-cosecha/entities/z-ciclo-contratista-cosecha.entity';
+import { Contratista } from '../../contratista/entities/contratista.entity';
 
 @Entity()
 export class Cosecha {
@@ -14,7 +14,10 @@ export class Cosecha {
   id: number;
 
   @Column()
-  date: string;
+  startDate: Date;
+
+  @Column()
+  endDate: Date;
 
   @Column()
   humidity: number;
@@ -22,19 +25,31 @@ export class Cosecha {
   @Column()
   tons: number;
 
+  @Column()
+  contractorCost: number;
+
+  @ManyToOne(() => Contratista, (contratista) => contratista.cosechas)
+  contratista: Contratista;
+
   @ManyToOne(() => Ciclo, (ciclo) => ciclo.cosechas)
   ciclo: Ciclo;
 
-  @OneToMany(
-    () => ZCicloContratistaCosecha,
-    (zCicloContratistaCosecha) => zCicloContratistaCosecha.cosecha,
-  )
-  zCicloContratistaCosechas: ZCicloContratistaCosecha[];
+  @DeleteDateColumn()
+  deletedAt: Date;
 
-  constructor(date: string, humidity: number, tons: number, ciclo: Ciclo) {
-    this.date = date;
+  constructor(
+    startDate: Date,
+    humidity: number,
+    tons: number,
+    contractorCost: number,
+    contratista: Contratista,
+    ciclo: Ciclo,
+  ) {
+    this.startDate = startDate;
     this.humidity = humidity;
     this.tons = tons;
+    this.contractorCost = contractorCost;
+    this.contratista = contratista;
     this.ciclo = ciclo;
   }
 }

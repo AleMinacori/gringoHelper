@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  DeleteDateColumn,
+} from 'typeorm';
 import { Ciclo } from '../../ciclo/entities/ciclo.entity';
 
 @Entity()
@@ -7,7 +13,10 @@ export class Seguro {
   id: number;
 
   @Column()
-  date: string;
+  startDate: Date;
+
+  @Column()
+  endDate: Date;
 
   @Column()
   type: string;
@@ -21,14 +30,19 @@ export class Seguro {
   @ManyToOne(() => Ciclo, (ciclo) => ciclo.seguros)
   ciclo: Ciclo;
 
+  @DeleteDateColumn()
+  deletedAt: Date;
+
   constructor(
-    date: string,
+    startDate: Date,
+    endDate: Date,
     type: string,
     cost: number,
     description: string,
     ciclo: Ciclo,
   ) {
-    this.date = date;
+    this.startDate = startDate;
+    this.endDate = endDate;
     this.type = type;
     this.cost = cost;
     this.description = description;

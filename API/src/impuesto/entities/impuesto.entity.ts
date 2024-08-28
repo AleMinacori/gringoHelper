@@ -1,5 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Ciclo } from '../../ciclo/entities/ciclo.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  DeleteDateColumn,
+} from 'typeorm';
+import { CicloImpuesto } from '../../ciclo-impuesto/entities/ciclo-impuesto.entity';
 
 @Entity()
 export class Impuesto {
@@ -7,31 +13,19 @@ export class Impuesto {
   id: number;
 
   @Column()
-  date: string;
-
-  @Column()
   type: string;
-
-  @Column()
-  cost: number;
 
   @Column()
   description: string;
 
-  @ManyToOne(() => Ciclo, (ciclo) => ciclo.impuestos)
-  ciclo: Ciclo;
+  @OneToMany(() => CicloImpuesto, (cicloImpuesto) => cicloImpuesto.impuesto)
+  cicloImpuestos: CicloImpuesto[];
 
-  constructor(
-    date: string,
-    type: string,
-    cost: number,
-    description: string,
-    ciclo: Ciclo,
-  ) {
-    this.date = date;
+  @DeleteDateColumn()
+  deletedAt: Date;
+
+  constructor(type: string, description: string) {
     this.type = type;
-    this.cost = cost;
     this.description = description;
-    this.ciclo = ciclo;
   }
 }

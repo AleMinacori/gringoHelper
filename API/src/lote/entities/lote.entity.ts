@@ -1,5 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { YCicloLote } from '../../y-ciclo-lote/entities/y-ciclo-lote.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+  DeleteDateColumn,
+} from 'typeorm';
+import { Campo } from '../../campo/entities/campo.entity';
+import { CicloLote } from '../../ciclo-lote/entities/ciclo-lote.entity';
 
 @Entity()
 export class Lote {
@@ -12,12 +20,19 @@ export class Lote {
   @Column()
   area: number;
 
-  @OneToMany(() => YCicloLote, (yCicloLote) => yCicloLote.lote)
-  ciclos: YCicloLote[];
+  @OneToMany(() => CicloLote, (cicloLote) => cicloLote.lote)
+  cicloLotes: CicloLote[];
 
-  constructor(name: string, area: number) {
+  @ManyToOne(() => Campo, (campo: Campo) => campo.lotes)
+  campo: Campo;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
+
+  constructor(name: string, area: number, campo: Campo) {
     this.name = name;
     this.area = area;
+    this.campo = campo;
   }
 
   public getName() {
@@ -28,11 +43,19 @@ export class Lote {
     return this.area;
   }
 
+  public getCampo() {
+    return this.campo;
+  }
+
   public setName(name: string) {
     this.name = name;
   }
 
   public setArea(area: number) {
     this.area = area;
+  }
+
+  public setCampo(campo: Campo) {
+    this.campo = campo;
   }
 }

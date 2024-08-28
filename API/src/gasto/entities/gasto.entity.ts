@@ -3,11 +3,10 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  OneToMany,
+  DeleteDateColumn,
 } from 'typeorm';
 import { Ciclo } from '../../ciclo/entities/ciclo.entity';
-import { ZCicloContratistaFumigacion } from '../../z-ciclo-contratista-fumigacion/entities/z-ciclo-contratista-fumigacion.entity';
-import { ZCicloContratistaGasto } from '../../z-ciclo-contratista-gasto/entities/z-ciclo-contratista-gasto.entity';
+import { Contratista } from '../../contratista/entities/contratista.entity';
 
 @Entity()
 export class Gasto {
@@ -15,7 +14,10 @@ export class Gasto {
   id: number;
 
   @Column()
-  date: string;
+  startDate: Date;
+
+  @Column()
+  endDate: Date;
 
   @Column()
   type: string;
@@ -26,23 +28,23 @@ export class Gasto {
   @Column()
   description: string;
 
+  @ManyToOne(() => Contratista, (contratista) => contratista.gastos)
+  contratista: Contratista;
+
   @ManyToOne(() => Ciclo, (ciclo) => ciclo.gastos)
   ciclo: Ciclo;
 
-  @OneToMany(
-    () => ZCicloContratistaGasto,
-    (zCicloContratistaGasto) => zCicloContratistaGasto.gasto,
-  )
-  zCicloContratistaGastos: ZCicloContratistaGasto[];
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   constructor(
-    date: string,
+    startDate: Date,
     type: string,
     cost: number,
     description: string,
     ciclo: Ciclo,
   ) {
-    this.date = date;
+    this.startDate = startDate;
     this.type = type;
     this.cost = cost;
     this.description = description;
