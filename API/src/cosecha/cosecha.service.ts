@@ -6,41 +6,58 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Cosecha } from './entities/cosecha.entity';
+import { ContratistaService } from '../contratista/contratista.service';
+import { CicloService } from '../ciclo/ciclo.service';
 
 @Injectable()
 export class CosechaService {
   constructor(
     @InjectRepository(Cosecha)
-    private cosechasRepository: Repository<Cosecha>,
+    private readonly cosechaRepository: Repository<Cosecha>,
+    private readonly contratistaService: ContratistaService,
+    private readonly cicloService: CicloService,
   ) {}
 
-  create(createCosechaDto: CreateCosechaDto) {
-    return 'This action adds a new cosecha';
+  async create(createCosechaDto: CreateCosechaDto) {
+    const contratista = await this.contratistaService.findOneOrFail(
+      createCosechaDto.contratistaId,
+    );
+    const ciclo = await this.cicloService.findOneOrFail(
+      createCosechaDto.cicloId,
+    );
+
+    const cosecha = new Cosecha(
+      createCosechaDto.startDate,
+      createCosechaDto.humidity,
+      createCosechaDto.tons,
+      createCosechaDto.contractorCost,
+      contratista,
+      ciclo,
+    );
+    return await this.cosechaRepository.save(cosecha);
   }
 
   async findAll() {
-    const cosecha = await this.cosechasRepository.find();
-    return cosecha;
+    return await this.cosechaRepository.find();
   }
 
   async findOne(id: number) {
-    const cosecha = await this.cosechasRepository.findOneBy({ id });
-    return cosecha;
+    return await this.cosechaRepository.findOneBy({ id });
   }
 
   async findOneOrFail(id: number): Promise<Cosecha | null> {
-    const cosecha = await this.cosechasRepository.findOneBy({ id });
+    const cosecha = await this.cosechaRepository.findOneBy({ id });
     if (!cosecha) {
       throw new NotFoundException(`Cosecha con id ${id} no encontrado`);
     }
     return cosecha;
   }
 
-  update(id: number, updateCosechaDto: UpdateCosechaDto) {
-    return `This action updates a #${id} cosecha`;
+  async update(id: number, updateCosechaDto: UpdateCosechaDto) {
+    return await `This action updates a #${id} cosecha`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} cosecha`;
+  async remove(id: number) {
+    return await this.cosechaRepository.softDelete({ id });
   }
 }

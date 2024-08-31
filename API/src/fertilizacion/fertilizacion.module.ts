@@ -4,9 +4,16 @@ import { FertilizacionController } from './fertilizacion.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Fertilizacion } from './entities/fertilizacion.entity';
 import { AplicacionModule } from '../aplicacion/aplicacion.module';
+import { CicloModule } from '../ciclo/ciclo.module';
+import { ContratistaModule } from '../contratista/contratista.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Fertilizacion]), AplicacionModule],
+  imports: [
+    TypeOrmModule.forFeature([Fertilizacion]),
+    CicloModule,
+    ContratistaModule,
+    AplicacionModule,
+  ],
   exports: [TypeOrmModule],
   controllers: [FertilizacionController],
   providers: [FertilizacionService],

@@ -41,15 +41,11 @@ export class Aplicacion {
     quantity: number,
     description: string,
     producto: Producto,
-    fertilizacion: Fertilizacion,
-    fumigacion: Fumigacion,
   ) {
     this.productCost = productCost;
     this.quantity = quantity;
     this.description = description;
     this.producto = producto;
-    this.fertilizacion = fertilizacion;
-    this.fumigacion = fumigacion;
   }
 
   public setProductCost(productCost: number) {

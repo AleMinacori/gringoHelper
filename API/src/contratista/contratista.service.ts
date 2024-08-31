@@ -11,36 +11,39 @@ import { Contratista } from './entities/contratista.entity';
 export class ContratistaService {
   constructor(
     @InjectRepository(Contratista)
-    private contratistasRepository: Repository<Contratista>,
+    private readonly contratistaRepository: Repository<Contratista>,
   ) {}
 
-  create(createContratistaDto: CreateContratistaDto) {
-    return 'This action adds a new contratista';
+  async create(createContratistaDto: CreateContratistaDto) {
+    const contratista = new Contratista(
+      createContratistaDto.name,
+      createContratistaDto.lastname,
+      createContratistaDto.cbu,
+    );
+    return await this.contratistaRepository.save(contratista);
   }
 
   async findAll() {
-    const contratistas = await this.contratistasRepository.find();
-    return contratistas;
+    return await this.contratistaRepository.find();
   }
 
   async findOne(id: number) {
-    const contratista = await this.contratistasRepository.findOneBy({ id });
-    return contratista;
+    return await this.contratistaRepository.findOneBy({ id });
   }
 
   async findOneOrFail(id: number): Promise<Contratista | null> {
-    const contratista = await this.contratistasRepository.findOneBy({ id });
+    const contratista = await this.contratistaRepository.findOneBy({ id });
     if (!contratista) {
       throw new NotFoundException(`Contratista con id ${id} no encontrado`);
     }
     return contratista;
   }
 
-  update(id: number, updateContratistaDto: UpdateContratistaDto) {
-    return `This action updates a #${id} contratista`;
+  async update(id: number, updateContratistaDto: UpdateContratistaDto) {
+    return await `This action updates a #${id} contratista`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} contratista`;
+  async remove(id: number) {
+    return await this.contratistaRepository.softDelete({ id });
   }
 }

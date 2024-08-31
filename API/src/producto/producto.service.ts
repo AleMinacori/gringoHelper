@@ -11,36 +11,38 @@ import { Producto } from './entities/producto.entity';
 export class ProductoService {
   constructor(
     @InjectRepository(Producto)
-    private productosRepository: Repository<Producto>,
+    private productoRepository: Repository<Producto>,
   ) {}
 
-  create(createProductoDto: CreateProductoDto) {
-    return 'This action adds a new producto';
+  async create(createProductoDto: CreateProductoDto) {
+    const producto = new Producto(
+      createProductoDto.name,
+      createProductoDto.type,
+    );
+    return await this.productoRepository.save(producto);
   }
 
   async findAll() {
-    const productos = await this.productosRepository.find();
-    return productos;
+    return await this.productoRepository.find();
   }
 
   async findOne(id: number) {
-    const producto = await this.productosRepository.findOneBy({ id });
-    return producto;
+    return await this.productoRepository.findOneBy({ id });
   }
 
   async findOneOrFail(id: number): Promise<Producto | null> {
-    const producto = await this.productosRepository.findOneBy({ id });
+    const producto = await this.productoRepository.findOneBy({ id });
     if (!producto) {
-      throw new NotFoundException(`Producto con id ${id} no encontrada`);
+      throw new NotFoundException(`Producto con id ${id} no encontrado`);
     }
     return producto;
   }
 
-  update(id: number, updateProductoDto: UpdateProductoDto) {
-    return `This action updates a #${id} producto`;
+  async update(id: number, updateProductoDto: UpdateProductoDto) {
+    return await `This action updates a #${id} producto`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} producto`;
+  async remove(id: number) {
+    return await this.productoRepository.softDelete({ id });
   }
 }

@@ -1,7 +1,11 @@
+import { IsNotEmpty, IsString } from 'class-validator';
+
 export class CreateImpuestoDto {
-  date: string;
+  @IsString()
+  @IsNotEmpty()
   type: string;
-  cost: number;
+
+  @IsString()
+  @IsNotEmpty()
   description: string;
-  cicloId: number;
 }

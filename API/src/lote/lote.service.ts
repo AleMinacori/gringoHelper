@@ -12,8 +12,8 @@ import { CampoService } from '../campo/campo.service';
 export class LoteService {
   constructor(
     @InjectRepository(Lote)
-    private loteRepository: Repository<Lote>,
-    private campoService: CampoService,
+    private readonly loteRepository: Repository<Lote>,
+    private readonly campoService: CampoService,
   ) {}
 
   async create(createLoteDto: CreateLoteDto): Promise<Lote> {

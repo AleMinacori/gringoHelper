@@ -26,6 +26,9 @@ export class Gasto {
   cost: number;
 
   @Column()
+  contractorCost: number;
+
+  @Column()
   description: string;
 
   @ManyToOne(() => Contratista, (contratista) => contratista.gastos)

@@ -5,11 +5,17 @@ import { CicloController } from './ciclo.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Ciclo } from './entities/ciclo.entity';
 
-import { LoteModule } from '../lote/lote.module';
+import { CicloLoteModule } from '../ciclo-lote/ciclo-lote.module';
 import { SiembraModule } from '../siembra/siembra.module';
+import { CicloImpuestoModule } from '../ciclo-impuesto/ciclo-impuesto.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Ciclo]), SiembraModule, LoteModule],
+  imports: [
+    TypeOrmModule.forFeature([Ciclo]),
+    SiembraModule,
+    CicloLoteModule,
+    CicloImpuestoModule,
+  ],
   exports: [TypeOrmModule],
   controllers: [CicloController],
   providers: [CicloService],

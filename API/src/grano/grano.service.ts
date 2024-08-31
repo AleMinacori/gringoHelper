@@ -10,7 +10,7 @@ import { Grano } from './entities/grano.entity';
 export class GranoService {
   constructor(
     @InjectRepository(Grano)
-    private granosRepository: Repository<Grano>,
+    private granoRepository: Repository<Grano>,
   ) {}
 
   async create(createGranoDto: CreateGranoDto): Promise<Grano> {
@@ -19,21 +19,19 @@ export class GranoService {
       createGranoDto.brand,
       createGranoDto.variety,
     );
-    return await this.granosRepository.save(grano);
+    return await this.granoRepository.save(grano);
   }
 
   async findAll(): Promise<Grano[]> {
-    const granos = await this.granosRepository.find();
-    return granos;
+    return await this.granoRepository.find();
   }
 
   async findOne(id: number): Promise<Grano | null> {
-    const grano = await this.granosRepository.findOneBy({ id });
-    return grano;
+    return await this.granoRepository.findOneBy({ id });
   }
 
   async findOneOrFail(id: number): Promise<Grano | null> {
-    const grano = await this.granosRepository.findOneBy({ id });
+    const grano = await this.granoRepository.findOneBy({ id });
     if (!grano) {
       throw new NotFoundException(`Grano con id ${id} no encontrado`);
     }
@@ -43,10 +41,10 @@ export class GranoService {
   async update(id: number, updateGranoDto: UpdateGranoDto): Promise<Grano> {
     const grano = await this.findOneOrFail(id);
     grano.setType(updateGranoDto.type);
-    return await this.granosRepository.save(grano);
+    return await this.granoRepository.save(grano);
   }
 
-  async remove(id: number): Promise<void> {
-    await this.granosRepository.delete(id);
+  async remove(id: number) {
+    return await this.granoRepository.softDelete(id);
   }
 }

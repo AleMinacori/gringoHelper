@@ -4,9 +4,16 @@ import { FumigacionController } from './fumigacion.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Fumigacion } from './entities/fumigacion.entity';
 import { AplicacionModule } from '../aplicacion/aplicacion.module';
+import { CicloModule } from '../ciclo/ciclo.module';
+import { ContratistaModule } from '../contratista/contratista.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Fumigacion]), AplicacionModule],
+  imports: [
+    TypeOrmModule.forFeature([Fumigacion]),
+    CicloModule,
+    ContratistaModule,
+    AplicacionModule,
+  ],
   exports: [TypeOrmModule],
   controllers: [FumigacionController],
   providers: [FumigacionService],

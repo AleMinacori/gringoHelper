@@ -10,15 +10,17 @@ import { GranoService } from '../grano/grano.service';
 import { CicloService } from '../ciclo/ciclo.service';
 import { TratamientoService } from '../tratamiento/tratamiento.service';
 import { Lote } from '../lote/entities/lote.entity';
+import { ContratistaService } from '../contratista/contratista.service';
 
 @Injectable()
 export class SiembraService {
   constructor(
     @InjectRepository(Siembra)
-    private siembrasRepository: Repository<Siembra>,
-    private cicloService: CicloService,
-    private granoService: GranoService,
-    private tratamientoService: TratamientoService,
+    private readonly siembraRepository: Repository<Siembra>,
+    private readonly cicloService: CicloService,
+    private readonly granoService: GranoService,
+    private readonly tratamientoService: TratamientoService,
+    private readonly contratistaService: ContratistaService,
   ) {}
 
   async create(createSiembraDto: CreateSiembraDto) {
@@ -31,30 +33,33 @@ export class SiembraService {
     const tratamiento = await this.tratamientoService.findOneOrFail(
       createSiembraDto.tratamientoId,
     );
+    const contratista = await this.contratistaService.findOneOrFail(
+      createSiembraDto.contratistaId,
+    );
     const siembra = new Siembra(
-      createSiembraDto.date,
+      createSiembraDto.startDate,
       createSiembraDto.density,
       createSiembraDto.depth,
-      createSiembraDto.costGrain,
+      createSiembraDto.seedCost,
+      createSiembraDto.contractorCost,
       tratamiento,
       grano,
+      contratista,
       ciclo,
     );
-    return await this.siembrasRepository.save(siembra);
+    return await this.siembraRepository.save(siembra);
   }
 
   async findAll(): Promise<Siembra[]> {
-    const siembras = await this.siembrasRepository.find();
-    return siembras;
+    return await this.siembraRepository.find();
   }
 
   async findOne(id: number): Promise<Siembra | null> {
-    const siembra = await this.siembrasRepository.findOneBy({ id });
-    return siembra;
+    return await this.siembraRepository.findOneBy({ id });
   }
 
   async findOneOrFail(id: number): Promise<Siembra | null> {
-    const siembra = await this.siembrasRepository.findOneBy({ id });
+    const siembra = await this.siembraRepository.findOneBy({ id });
     if (!siembra) {
       throw new NotFoundException(`Siembra con id ${id} no encontrada`);
     }
@@ -65,7 +70,7 @@ export class SiembraService {
     return `This action updates a #${id} siembra`;
   }
 
-  async remove(id: number): Promise<void> {
-    await this.siembrasRepository.delete(id);
+  async remove(id: number) {
+    return await this.siembraRepository.softDelete(id);
   }
 }

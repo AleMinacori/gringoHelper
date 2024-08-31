@@ -6,41 +6,71 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Fumigacion } from './entities/fumigacion.entity';
+import { AplicacionService } from '../aplicacion/aplicacion.service';
+import { ContratistaService } from '../contratista/contratista.service';
+import { CicloService } from '../ciclo/ciclo.service';
 
 @Injectable()
 export class FumigacionService {
   constructor(
     @InjectRepository(Fumigacion)
-    private fumigacionesRepository: Repository<Fumigacion>,
+    private fumigacionRepository: Repository<Fumigacion>,
+    private readonly aplicacionService: AplicacionService,
+    private readonly contratistaService: ContratistaService,
+    private readonly cicloService: CicloService,
   ) {}
 
-  create(createFumigacionDto: CreateFumigacionDto) {
-    return 'This action adds a new fumigacion';
+  async create(createFumigacionDto: CreateFumigacionDto) {
+    const ciclo = await this.cicloService.findOneOrFail(
+      createFumigacionDto.cicloId,
+    );
+    const contratista = await this.contratistaService.findOneOrFail(
+      createFumigacionDto.contratistaId,
+    );
+
+    let fumigacion = new Fumigacion(
+      createFumigacionDto.startDate,
+      createFumigacionDto.contractorCost,
+      contratista,
+      ciclo,
+    );
+
+    fumigacion = await this.fumigacionRepository.save(fumigacion);
+
+    await this.aplicacionService.createFumigacion(
+      {
+        productCost: createFumigacionDto.productCost,
+        quantity: createFumigacionDto.quantity,
+        description: createFumigacionDto.description,
+        productoId: createFumigacionDto.productoId,
+      },
+      fumigacion,
+    );
+
+    return await this.fumigacionRepository.save(fumigacion);
   }
 
   async findAll() {
-    const fumigaciones = await this.fumigacionesRepository.find();
-    return fumigaciones;
+    return await this.fumigacionRepository.find();
   }
 
   async findOne(id: number) {
-    const fumigacion = await this.fumigacionesRepository.findOneBy({ id });
-    return fumigacion;
+    return await this.fumigacionRepository.findOneBy({ id });
   }
 
   async findOneOrFail(id: number): Promise<Fumigacion | null> {
-    const fumigacion = await this.fumigacionesRepository.findOneBy({ id });
+    const fumigacion = await this.fumigacionRepository.findOneBy({ id });
     if (!fumigacion) {
       throw new NotFoundException(`Fumigacion con id ${id} no encontrado`);
     }
     return fumigacion;
   }
 
-  update(id: number, updateFumigacionDto: UpdateFumigacionDto) {
-    return `This action updates a #${id} fumigacion`;
+  async update(id: number, updateFumigacionDto: UpdateFumigacionDto) {
+    return await `This action updates a #${id} fumigacion`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} fumigacion`;
+  async remove(id: number) {
+    return await this.fumigacionRepository.softDelete({ id });
   }
 }

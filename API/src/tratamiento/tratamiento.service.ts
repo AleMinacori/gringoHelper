@@ -11,36 +11,38 @@ import { Tratamiento } from './entities/tratamiento.entity';
 export class TratamientoService {
   constructor(
     @InjectRepository(Tratamiento)
-    private tratamientosRepository: Repository<Tratamiento>,
+    private tratamientoRepository: Repository<Tratamiento>,
   ) {}
 
-  create(createTratamientoDto: CreateTratamientoDto) {
-    return 'This action adds a new tratamiento';
+  async create(createTratamientoDto: CreateTratamientoDto) {
+    const tratamiento = new Tratamiento(
+      createTratamientoDto.name,
+      createTratamientoDto.description,
+    );
+    return await this.tratamientoRepository.save(tratamiento);
   }
 
   async findAll() {
-    const tratamientos = await this.tratamientosRepository.find();
-    return tratamientos;
+    return await this.tratamientoRepository.find();
   }
 
   async findOne(id: number) {
-    const tratamiento = await this.tratamientosRepository.findOneBy({ id });
-    return tratamiento;
+    return await this.tratamientoRepository.findOneBy({ id });
   }
 
   async findOneOrFail(id: number): Promise<Tratamiento | null> {
-    const tratamiento = await this.tratamientosRepository.findOneBy({ id });
+    const tratamiento = await this.tratamientoRepository.findOneBy({ id });
     if (!tratamiento) {
       throw new NotFoundException(`Tratamiento con id ${id} no encontrado`);
     }
     return tratamiento;
   }
 
-  update(id: number, updateTratamientoDto: UpdateTratamientoDto) {
-    return `This action updates a #${id} tratamiento`;
+  async update(id: number, updateTratamientoDto: UpdateTratamientoDto) {
+    return await `This action updates a #${id} tratamiento`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tratamiento`;
+  async remove(id: number) {
+    return await this.tratamientoRepository.softDelete({ id });
   }
 }

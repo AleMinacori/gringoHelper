@@ -6,10 +6,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Siembra } from './entities/siembra.entity';
 
 import { GranoModule } from '../grano/grano.module';
-import { LoteModule } from '../lote/lote.module';
+import { TratamientoModule } from '../tratamiento/tratamiento.module';
+import { CicloModule } from '../ciclo/ciclo.module';
+import { ContratistaModule } from '../contratista/contratista.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Siembra]), GranoModule, LoteModule],
+  imports: [
+    TypeOrmModule.forFeature([Siembra]),
+    GranoModule,
+    TratamientoModule,
+    CicloModule,
+    ContratistaModule,
+  ],
   exports: [TypeOrmModule],
   controllers: [SiembraController],
   providers: [SiembraService],
