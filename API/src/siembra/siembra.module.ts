@@ -9,6 +9,10 @@ import { GranoModule } from '../grano/grano.module';
 import { TratamientoModule } from '../tratamiento/tratamiento.module';
 import { CicloModule } from '../ciclo/ciclo.module';
 import { ContratistaModule } from '../contratista/contratista.module';
+import { GranoService } from '../grano/grano.service';
+import { TratamientoService } from '../tratamiento/tratamiento.service';
+import { CicloService } from '../ciclo/ciclo.service';
+import { ContratistaService } from '../contratista/contratista.service';
 
 @Module({
   imports: [
@@ -18,8 +22,21 @@ import { ContratistaModule } from '../contratista/contratista.module';
     CicloModule,
     ContratistaModule,
   ],
-  exports: [TypeOrmModule],
+  exports: [
+    TypeOrmModule,
+    SiembraService,
+    GranoService,
+    TratamientoService,
+    CicloService,
+    ContratistaService,
+  ],
   controllers: [SiembraController],
-  providers: [SiembraService],
+  providers: [
+    SiembraService,
+    GranoService,
+    TratamientoService,
+    CicloService,
+    ContratistaService,
+  ],
 })
 export class SiembraModule {}

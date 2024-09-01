@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cosecha } from './entities/cosecha.entity';
 import { CicloModule } from '../ciclo/ciclo.module';
 import { ContratistaModule } from '../contratista/contratista.module';
+import { CicloService } from '../ciclo/ciclo.service';
+import { ContratistaService } from '../contratista/contratista.service';
 
 @Module({
   imports: [
@@ -12,8 +14,8 @@ import { ContratistaModule } from '../contratista/contratista.module';
     CicloModule,
     ContratistaModule,
   ],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, CosechaService, CicloService, ContratistaService],
   controllers: [CosechaController],
-  providers: [CosechaService],
+  providers: [CosechaService, CicloService, ContratistaService],
 })
 export class CosechaModule {}

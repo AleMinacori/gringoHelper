@@ -37,7 +37,7 @@ import { CicloLoteModule } from './ciclo-lote/ciclo-lote.module';
       username: 'root',
       password: '2468',
       database: 'campo',
-      entities: [Grano, Lote, Siembra],
+      autoLoadEntities: true,
       synchronize: true,
     }),
     SiembraModule,

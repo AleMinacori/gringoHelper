@@ -6,7 +6,7 @@ import { Impuesto } from './entities/impuesto.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Impuesto])],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, ImpuestoService],
   controllers: [ImpuestoController],
   providers: [ImpuestoService],
 })

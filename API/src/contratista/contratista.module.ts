@@ -6,7 +6,7 @@ import { Contratista } from './entities/contratista.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Contratista])],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, ContratistaService],
   controllers: [ContratistaController],
   providers: [ContratistaService],
 })

@@ -5,7 +5,6 @@ import { UpdateLoteDto } from './dto/update-lote.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Lote } from './entities/lote.entity';
-import { Campo } from '../campo/entities/campo.entity';
 import { CampoService } from '../campo/campo.service';
 
 @Injectable()

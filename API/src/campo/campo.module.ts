@@ -6,7 +6,7 @@ import { Campo } from './entities/campo.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Campo])],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, CampoService],
   controllers: [CampoController],
   providers: [CampoService],
 })
