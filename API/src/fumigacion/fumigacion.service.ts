@@ -29,7 +29,7 @@ export class FumigacionService {
     );
 
     let fumigacion = new Fumigacion(
-      createFumigacionDto.startDate,
+      new Date(createFumigacionDto.startDate),
       createFumigacionDto.contractorCost,
       contratista,
       ciclo,
@@ -67,7 +67,29 @@ export class FumigacionService {
   }
 
   async update(id: number, updateFumigacionDto: UpdateFumigacionDto) {
-    return await `This action updates a #${id} fumigacion`;
+    const fumigacion = await this.findOneOrFail(id);
+    if (updateFumigacionDto.startDate) {
+      fumigacion.setStartDate(new Date(updateFumigacionDto.startDate));
+    }
+    if (updateFumigacionDto.endDate) {
+      fumigacion.setEndDate(new Date(updateFumigacionDto.endDate));
+    }
+    if (updateFumigacionDto.contractorCost) {
+      fumigacion.setContractorCost(updateFumigacionDto.contractorCost);
+    }
+    if (updateFumigacionDto.contratistaId) {
+      const contratista = await this.contratistaService.findOneOrFail(
+        updateFumigacionDto.contratistaId,
+      );
+      fumigacion.setContratista(contratista);
+    }
+    if (updateFumigacionDto.cicloId) {
+      const ciclo = await this.cicloService.findOneOrFail(
+        updateFumigacionDto.cicloId,
+      );
+      fumigacion.setCiclo(ciclo);
+    }
+    return await this.fumigacionRepository.save(fumigacion);
   }
 
   async remove(id: number) {

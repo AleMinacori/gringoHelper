@@ -1,11 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAplicacionDto } from './dto/create-aplicacion.dto';
 import { UpdateAplicacionDto } from './dto/update-aplicacion.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Aplicacion } from './entities/aplicacion.entity';
 import { Repository } from 'typeorm';
 import { ProductoService } from '../producto/producto.service';
-import { AplicacionModule } from './aplicacion.module';
 import { Fertilizacion } from '../fertilizacion/entities/fertilizacion.entity';
 import { Fumigacion } from '../fumigacion/entities/fumigacion.entity';
 
@@ -56,8 +55,28 @@ export class AplicacionService {
     return await this.aplicacionRepository.findOneBy({ id });
   }
 
+  async findOneOrFail(id: number): Promise<Aplicacion | null> {
+    const aplicacion = await this.aplicacionRepository.findOneBy({
+      id,
+    });
+    if (!aplicacion) {
+      throw new NotFoundException(`aplicacion con id ${id} no encontrada`);
+    }
+    return aplicacion;
+  }
+
   async update(id: number, updateAplicacionDto: UpdateAplicacionDto) {
-    return await `This action updates a #${id} aplicacion`;
+    const aplicacion = await this.findOneOrFail(id);
+    if (updateAplicacionDto.productCost) {
+      aplicacion.setProductCost(updateAplicacionDto.productCost);
+    }
+    if (updateAplicacionDto.quantity) {
+      aplicacion.setQuantity(updateAplicacionDto.quantity);
+    }
+    if (updateAplicacionDto.description) {
+      aplicacion.setDescription(updateAplicacionDto.description);
+    }
+    return await this.aplicacionRepository.save(aplicacion);
   }
 
   async remove(id: number) {

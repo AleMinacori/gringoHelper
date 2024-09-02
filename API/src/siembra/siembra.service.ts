@@ -37,7 +37,7 @@ export class SiembraService {
       createSiembraDto.contratistaId,
     );
     const siembra = new Siembra(
-      createSiembraDto.startDate,
+      new Date(createSiembraDto.startDate),
       createSiembraDto.density,
       createSiembraDto.depth,
       createSiembraDto.seedCost,
@@ -66,8 +66,51 @@ export class SiembraService {
     return siembra;
   }
 
-  update(id: number, updateSiembraDto: UpdateSiembraDto) {
-    return `This action updates a #${id} siembra`;
+  async update(id: number, updateSiembraDto: UpdateSiembraDto) {
+    const siembra = await this.findOneOrFail(id);
+    if (updateSiembraDto.startDate) {
+      siembra.setStartDate(new Date(updateSiembraDto.startDate));
+    }
+    if (updateSiembraDto.endDate) {
+      siembra.setEndDate(new Date(updateSiembraDto.endDate));
+    }
+    if (updateSiembraDto.density) {
+      siembra.setDensity(updateSiembraDto.density);
+    }
+    if (updateSiembraDto.depth) {
+      siembra.setDepth(updateSiembraDto.depth);
+    }
+    if (updateSiembraDto.seedCost) {
+      siembra.setSeedCost(updateSiembraDto.seedCost);
+    }
+    if (updateSiembraDto.contractorCost) {
+      siembra.setContractorCost(updateSiembraDto.contractorCost);
+    }
+    if (updateSiembraDto.granoId) {
+      const grano = await this.granoService.findOneOrFail(
+        updateSiembraDto.granoId,
+      );
+      siembra.setGrano(grano);
+    }
+    if (updateSiembraDto.tratamientoId) {
+      const tratamiento = await this.tratamientoService.findOneOrFail(
+        updateSiembraDto.tratamientoId,
+      );
+      siembra.setTratamiento(tratamiento);
+    }
+    if (updateSiembraDto.contratistaId) {
+      const contratista = await this.contratistaService.findOneOrFail(
+        updateSiembraDto.contratistaId,
+      );
+      siembra.setContratista(contratista);
+    }
+    if (updateSiembraDto.cicloId) {
+      const ciclo = await this.cicloService.findOneOrFail(
+        updateSiembraDto.cicloId,
+      );
+      siembra.setCiclo(ciclo);
+    }
+    return await this.siembraRepository.save(siembra);
   }
 
   async remove(id: number) {

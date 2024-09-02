@@ -15,10 +15,10 @@ export class Fumigacion {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: null })
   startDate: Date;
 
-  @Column()
+  @Column({ default: null })
   endDate: Date;
 
   @Column()
@@ -45,6 +45,26 @@ export class Fumigacion {
     this.startDate = startDate;
     this.contractorCost = contractorCost;
     this.contratista = contratista;
+    this.ciclo = ciclo;
+  }
+
+  public setStartDate(startDate: Date) {
+    this.startDate = startDate;
+  }
+
+  public setEndDate(endDate: Date) {
+    this.endDate = endDate;
+  }
+
+  public setContractorCost(contractorCost: number) {
+    this.contractorCost = contractorCost;
+  }
+
+  public setContratista(contratista: Contratista) {
+    this.contratista = contratista;
+  }
+
+  public setCiclo(ciclo: Ciclo) {
     this.ciclo = ciclo;
   }
 }

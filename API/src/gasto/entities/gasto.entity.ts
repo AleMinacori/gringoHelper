@@ -13,10 +13,10 @@ export class Gasto {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: null })
   startDate: Date;
 
-  @Column()
+  @Column({ default: null })
   endDate: Date;
 
   @Column()
@@ -51,6 +51,38 @@ export class Gasto {
     this.type = type;
     this.cost = cost;
     this.description = description;
+    this.ciclo = ciclo;
+  }
+
+  public setStartDate(startDate: Date) {
+    this.startDate = startDate;
+  }
+
+  public setEndDate(endDate: Date) {
+    this.endDate = endDate;
+  }
+
+  public setType(type: string) {
+    this.type = type;
+  }
+
+  public setCost(cost: number) {
+    this.cost = cost;
+  }
+
+  public setContractorCost(contractorCost: number) {
+    this.contractorCost = contractorCost;
+  }
+
+  public setDescription(description: string) {
+    this.description = description;
+  }
+
+  public setContratista(contratista: Contratista) {
+    this.contratista = contratista;
+  }
+
+  public setCiclo(ciclo: Ciclo) {
     this.ciclo = ciclo;
   }
 }

@@ -29,7 +29,7 @@ export class FertilizacionService {
     );
 
     let fertilizacion = new Fertilizacion(
-      createFertilizacionDto.startDate,
+      new Date(createFertilizacionDto.startDate),
       createFertilizacionDto.contractorCost,
       contratista,
       ciclo,
@@ -68,7 +68,29 @@ export class FertilizacionService {
   }
 
   async update(id: number, updateFertilizacionDto: UpdateFertilizacionDto) {
-    return await `This action updates a #${id} fertilizacion`;
+    const fertilizacion = await this.findOneOrFail(id);
+    if (updateFertilizacionDto.startDate) {
+      fertilizacion.setStartDate(new Date(updateFertilizacionDto.startDate));
+    }
+    if (updateFertilizacionDto.endDate) {
+      fertilizacion.setEndDate(new Date(updateFertilizacionDto.endDate));
+    }
+    if (updateFertilizacionDto.contractorCost) {
+      fertilizacion.setContractorCost(updateFertilizacionDto.contractorCost);
+    }
+    if (updateFertilizacionDto.contratistaId) {
+      const contratista = await this.contratistaService.findOneOrFail(
+        updateFertilizacionDto.contratistaId,
+      );
+      fertilizacion.setContratista(contratista);
+    }
+    if (updateFertilizacionDto.cicloId) {
+      const ciclo = await this.cicloService.findOneOrFail(
+        updateFertilizacionDto.cicloId,
+      );
+      fertilizacion.setCiclo(ciclo);
+    }
+    return await this.fertilizacionRepository.save(fertilizacion);
   }
 
   async remove(id: number) {

@@ -26,6 +26,9 @@ export class Contratista {
   @Column()
   cbu: string;
 
+  @Column()
+  alias: string;
+
   @OneToMany(() => Siembra, (siembra) => siembra.contratista)
   siembras: Siembra[];
 
@@ -47,10 +50,11 @@ export class Contratista {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  constructor(name: string, lastname: string, cbu: string) {
+  constructor(name: string, lastname: string, cbu: string, alias: string) {
     this.name = name;
     this.lastname = lastname;
     this.cbu = cbu;
+    this.alias = alias;
   }
 
   public setName(name: string) {
@@ -63,5 +67,9 @@ export class Contratista {
 
   public setCbu(cbu: string) {
     this.cbu = cbu;
+  }
+
+  public setAlias(alias: string) {
+    this.alias = alias;
   }
 }

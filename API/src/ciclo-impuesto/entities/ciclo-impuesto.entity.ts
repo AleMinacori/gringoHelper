@@ -13,10 +13,10 @@ export class CicloImpuesto {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: null })
   startDate: Date;
 
-  @Column()
+  @Column({ default: null })
   endDate: Date;
 
   @Column()

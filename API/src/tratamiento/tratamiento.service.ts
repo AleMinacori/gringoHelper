@@ -39,7 +39,14 @@ export class TratamientoService {
   }
 
   async update(id: number, updateTratamientoDto: UpdateTratamientoDto) {
-    return await `This action updates a #${id} tratamiento`;
+    const tratamiento = await this.findOneOrFail(id);
+    if (updateTratamientoDto.name) {
+      tratamiento.setName(updateTratamientoDto.name);
+    }
+    if (updateTratamientoDto.description) {
+      tratamiento.setDescription(updateTratamientoDto.description);
+    }
+    return await this.tratamientoRepository.save(tratamiento);
   }
 
   async remove(id: number) {

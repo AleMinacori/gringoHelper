@@ -22,7 +22,7 @@ export class GastoService {
     const ciclo = await this.cicloService.findOneOrFail(createGastoDto.cicloId);
 
     const gasto = new Gasto(
-      createGastoDto.startDate,
+      new Date(createGastoDto.startDate),
       createGastoDto.type,
       createGastoDto.cost,
       createGastoDto.description,
@@ -48,7 +48,38 @@ export class GastoService {
   }
 
   async update(id: number, updateGastoDto: UpdateGastoDto) {
-    return await `This action updates a #${id} gasto`;
+    const gasto = await this.findOneOrFail(id);
+    if (updateGastoDto.startDate) {
+      gasto.setStartDate(new Date(updateGastoDto.startDate));
+    }
+    if (updateGastoDto.endDate) {
+      gasto.setEndDate(new Date(updateGastoDto.endDate));
+    }
+    if (updateGastoDto.type) {
+      gasto.setType(updateGastoDto.type);
+    }
+    if (updateGastoDto.cost) {
+      gasto.setCost(updateGastoDto.cost);
+    }
+    if (updateGastoDto.contractorCost) {
+      gasto.setContractorCost(updateGastoDto.contractorCost);
+    }
+    if (updateGastoDto.description) {
+      gasto.setDescription(updateGastoDto.description);
+    }
+    if (updateGastoDto.contratistaId) {
+      const contratista = await this.contratistaService.findOneOrFail(
+        updateGastoDto.contratistaId,
+      );
+      gasto.setContratista(contratista);
+    }
+    if (updateGastoDto.cicloId) {
+      const ciclo = await this.cicloService.findOneOrFail(
+        updateGastoDto.cicloId,
+      );
+      gasto.setCiclo(ciclo);
+    }
+    return await this.gastoRepository.save(gasto);
   }
 
   async remove(id: number) {

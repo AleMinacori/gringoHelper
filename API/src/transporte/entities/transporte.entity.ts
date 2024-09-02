@@ -13,10 +13,10 @@ export class Transporte {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: null })
   startDate: Date;
 
-  @Column()
+  @Column({ default: null })
   endDate: Date;
 
   @Column()
@@ -55,6 +55,38 @@ export class Transporte {
     this.description = description;
     this.contractorCost = contractorCost;
     this.contratista = contratista;
+    this.ciclo = ciclo;
+  }
+
+  public setStartDate(startDate: Date) {
+    this.startDate = startDate;
+  }
+
+  public setEndDate(endDate: Date) {
+    this.endDate = endDate;
+  }
+
+  public setStartPoint(startPoint: string) {
+    this.startPoint = startPoint;
+  }
+
+  public setEndPoint(endPoint: string) {
+    this.endPoint = endPoint;
+  }
+
+  public setDescription(description: string) {
+    this.description = description;
+  }
+
+  public setContractorCost(contractorCost: number) {
+    this.contractorCost = contractorCost;
+  }
+
+  public setContratista(contratista: Contratista) {
+    this.contratista = contratista;
+  }
+
+  public setCiclo(ciclo: Ciclo) {
     this.ciclo = ciclo;
   }
 }

@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { TratamientoService } from './tratamiento.service';
 import { CreateTratamientoDto } from './dto/create-tratamiento.dto';
@@ -30,7 +30,7 @@ export class TratamientoController {
     return this.tratamientoService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateTratamientoDto: UpdateTratamientoDto,

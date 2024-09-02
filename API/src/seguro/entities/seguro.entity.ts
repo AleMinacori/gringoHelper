@@ -12,10 +12,10 @@ export class Seguro {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: null })
   startDate: Date;
 
-  @Column()
+  @Column({ default: null })
   endDate: Date;
 
   @Column()
@@ -46,6 +46,30 @@ export class Seguro {
     this.type = type;
     this.cost = cost;
     this.description = description;
+    this.ciclo = ciclo;
+  }
+
+  public setStartDate(startDate: Date) {
+    this.startDate = startDate;
+  }
+
+  public setEndDate(endDate: Date) {
+    this.endDate = endDate;
+  }
+
+  public setType(type: string) {
+    this.type = type;
+  }
+
+  public setCost(cost: number) {
+    this.cost = cost;
+  }
+
+  public setDescription(description: string) {
+    this.description = description;
+  }
+
+  public setCiclo(ciclo: Ciclo) {
     this.ciclo = ciclo;
   }
 }

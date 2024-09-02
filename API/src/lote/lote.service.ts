@@ -41,8 +41,12 @@ export class LoteService {
 
   async update(id: number, updateLoteDto: UpdateLoteDto): Promise<Lote> {
     const lote = await this.findOneOrFail(id);
-    lote.setName(updateLoteDto.name);
-    lote.setArea(updateLoteDto.area);
+    if (updateLoteDto.name) {
+      lote.setName(updateLoteDto.name);
+    }
+    if (updateLoteDto.area) {
+      lote.setArea(updateLoteDto.area);
+    }
     return await this.loteRepository.save(lote);
   }
 

@@ -21,8 +21,8 @@ export class SeguroService {
       createSeguroDto.cicloId,
     );
     const seguro = new Seguro(
-      createSeguroDto.startDate,
-      createSeguroDto.endDate,
+      new Date(createSeguroDto.startDate),
+      new Date(createSeguroDto.endDate),
       createSeguroDto.type,
       createSeguroDto.cost,
       createSeguroDto.description,
@@ -50,7 +50,29 @@ export class SeguroService {
   }
 
   async update(id: number, updateSeguroDto: UpdateSeguroDto) {
-    return await `This action updates a #${id} seguro`;
+    const seguro = await this.findOneOrFail(id);
+    if (updateSeguroDto.startDate) {
+      seguro.setStartDate(new Date(updateSeguroDto.startDate));
+    }
+    if (updateSeguroDto.endDate) {
+      seguro.setEndDate(new Date(updateSeguroDto.endDate));
+    }
+    if (updateSeguroDto.type) {
+      seguro.setType(updateSeguroDto.type);
+    }
+    if (updateSeguroDto.cost) {
+      seguro.setCost(updateSeguroDto.cost);
+    }
+    if (updateSeguroDto.description) {
+      seguro.setDescription(updateSeguroDto.description);
+    }
+    if (updateSeguroDto.cicloId) {
+      const ciclo = await this.cicloService.findOneOrFail(
+        updateSeguroDto.cicloId,
+      );
+      seguro.setCiclo(ciclo);
+    }
+    return await this.seguroRepository.save(seguro);
   }
 
   async remove(id: number) {

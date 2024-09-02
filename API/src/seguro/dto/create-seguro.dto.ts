@@ -1,5 +1,5 @@
 import {
-  IsDate,
+  IsDateString,
   IsNotEmpty,
   IsNumber,
   IsPositive,
@@ -7,11 +7,11 @@ import {
 } from 'class-validator';
 
 export class CreateSeguroDto {
-  @IsDate()
-  startDate: Date;
+  @IsDateString()
+  startDate: string;
 
-  @IsDate()
-  endDate: Date;
+  @IsDateString()
+  endDate: string;
 
   @IsString()
   @IsNotEmpty()

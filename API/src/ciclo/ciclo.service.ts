@@ -8,6 +8,8 @@ import { Repository } from 'typeorm';
 import { Ciclo } from './entities/ciclo.entity';
 import { CicloLoteService } from '../ciclo-lote/ciclo-lote.service';
 import { CicloImpuestoService } from '../ciclo-impuesto/ciclo-impuesto.service';
+import { AssignLoteCicloDto } from './dto/assign-lote-ciclo.dto';
+import { AssignImpuestoCicloDto } from './dto/assign-impuesto-ciclo.dto';
 
 @Injectable()
 export class CicloService {
@@ -48,7 +50,18 @@ export class CicloService {
 
   async update(id: number, updateCicloDto: UpdateCicloDto) {
     const ciclo = await this.findOneOrFail(id);
-    ciclo.setName(updateCicloDto.name);
+    if (updateCicloDto.name) {
+      ciclo.setName(updateCicloDto.name);
+    }
+    if (updateCicloDto.startDate) {
+      ciclo.setStartDate(new Date(updateCicloDto.startDate));
+    }
+    if (updateCicloDto.endDate) {
+      ciclo.setEndDate(new Date(updateCicloDto.endDate));
+    }
+    if (updateCicloDto.state) {
+      ciclo.setState(updateCicloDto.state);
+    }
     return await this.cicloRepository.save(ciclo);
   }
 
@@ -56,17 +69,23 @@ export class CicloService {
     return await this.cicloRepository.softDelete(id);
   }
 
-  async assignLotes(lotesId: number[], cicloId: number) {
+  async assignLotes(assignLoteCicloDto: AssignLoteCicloDto, cicloId: number) {
     const ciclo = await this.findOneOrFail(cicloId);
-    for (let i = 0; i < lotesId.length; i++) {
-      await this.cicloLoteService.create(lotesId[i], ciclo);
+    for (let i = 0; i < assignLoteCicloDto.lotesId.length; i++) {
+      await this.cicloLoteService.create(assignLoteCicloDto.lotesId[i], ciclo);
     }
   }
 
-  async assignImpuestos(impuestosId: number[], cicloId: number) {
+  async assignImpuestos(
+    assignImpuestoCicloDto: AssignImpuestoCicloDto,
+    cicloId: number,
+  ) {
     const ciclo = await this.findOneOrFail(cicloId);
-    for (let i = 0; i < impuestosId.length; i++) {
-      await this.cicloImpuestoService.create(impuestosId[i], ciclo);
+    for (let i = 0; i < assignImpuestoCicloDto.impuestosId.length; i++) {
+      await this.cicloImpuestoService.create(
+        assignImpuestoCicloDto.impuestosId[i],
+        ciclo,
+      );
     }
   }
 }

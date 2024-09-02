@@ -39,7 +39,14 @@ export class ImpuestoService {
   }
 
   async update(id: number, updateImpuestoDto: UpdateImpuestoDto) {
-    return `This action updates a #${id} impuesto`;
+    const impuesto = await this.findOneOrFail(id);
+    if (updateImpuestoDto.type) {
+      impuesto.setType(updateImpuestoDto.type);
+    }
+    if (updateImpuestoDto.description) {
+      impuesto.setDescription(updateImpuestoDto.description);
+    }
+    return await this.impuestoRepository.save(impuesto);
   }
 
   async remove(id: number) {

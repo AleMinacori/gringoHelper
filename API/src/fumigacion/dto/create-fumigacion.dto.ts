@@ -1,9 +1,9 @@
 import { CreateAplicacionDto } from '../../aplicacion/dto/create-aplicacion.dto';
-import { IsDate, IsNumber, IsPositive } from 'class-validator';
+import { IsDateString, IsNumber, IsPositive } from 'class-validator';
 
 export class CreateFumigacionDto extends CreateAplicacionDto {
-  @IsDate()
-  startDate: Date;
+  @IsDateString()
+  startDate: string;
 
   @IsNumber()
   @IsPositive()
@@ -12,10 +12,6 @@ export class CreateFumigacionDto extends CreateAplicacionDto {
   @IsNumber()
   @IsPositive()
   contratistaId: number;
-
-  @IsNumber()
-  @IsPositive()
-  productoId: number;
 
   @IsNumber()
   @IsPositive()

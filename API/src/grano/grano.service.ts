@@ -40,7 +40,15 @@ export class GranoService {
 
   async update(id: number, updateGranoDto: UpdateGranoDto): Promise<Grano> {
     const grano = await this.findOneOrFail(id);
-    grano.setType(updateGranoDto.type);
+    if (updateGranoDto.type) {
+      grano.setType(updateGranoDto.type);
+    }
+    if (updateGranoDto.brand) {
+      grano.setBrand(updateGranoDto.brand);
+    }
+    if (updateGranoDto.variety) {
+      grano.setVariety(updateGranoDto.variety);
+    }
     return await this.granoRepository.save(grano);
   }
 

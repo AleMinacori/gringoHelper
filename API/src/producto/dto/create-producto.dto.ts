@@ -8,4 +8,8 @@ export class CreateProductoDto {
   @IsString()
   @IsNotEmpty()
   type: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description: string;
 }

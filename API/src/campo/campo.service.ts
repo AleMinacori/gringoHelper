@@ -34,7 +34,11 @@ export class CampoService {
   }
 
   async update(id: number, updateCampoDto: UpdateCampoDto) {
-    return await `This action updates a #${id} campo`;
+    const campo = await this.findOneOrFail(id);
+    if (updateCampoDto.name) {
+      campo.setName(updateCampoDto.name);
+    }
+    return await this.campoRepository.save(campo);
   }
 
   async remove(id: number) {

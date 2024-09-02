@@ -12,4 +12,8 @@ export class CreateContratistaDto {
   @IsString()
   @IsNotEmpty()
   cbu: string;
+
+  @IsString()
+  @IsNotEmpty()
+  alias: string;
 }

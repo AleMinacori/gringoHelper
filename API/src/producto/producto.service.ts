@@ -18,6 +18,7 @@ export class ProductoService {
     const producto = new Producto(
       createProductoDto.name,
       createProductoDto.type,
+      createProductoDto.description,
     );
     return await this.productoRepository.save(producto);
   }
@@ -39,7 +40,17 @@ export class ProductoService {
   }
 
   async update(id: number, updateProductoDto: UpdateProductoDto) {
-    return await `This action updates a #${id} producto`;
+    const producto = await this.findOneOrFail(id);
+    if (updateProductoDto.name) {
+      producto.setName(updateProductoDto.name);
+    }
+    if (updateProductoDto.type) {
+      producto.setType(updateProductoDto.type);
+    }
+    if (updateProductoDto.description) {
+      producto.setDescription(updateProductoDto.description);
+    }
+    return await this.productoRepository.save(producto);
   }
 
   async remove(id: number) {

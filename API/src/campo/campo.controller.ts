@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { CampoService } from './campo.service';
 import { CreateCampoDto } from './dto/create-campo.dto';
@@ -30,7 +30,7 @@ export class CampoController {
     return this.campoService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateCampoDto: UpdateCampoDto) {
     return this.campoService.update(+id, updateCampoDto);
   }

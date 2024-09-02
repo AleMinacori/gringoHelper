@@ -28,4 +28,12 @@ export class Impuesto {
     this.type = type;
     this.description = description;
   }
+
+  public setType(type: string) {
+    this.type = type;
+  }
+
+  public setDescription(description: string) {
+    this.description = description;
+  }
 }

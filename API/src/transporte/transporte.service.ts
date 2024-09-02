@@ -26,7 +26,7 @@ export class TransporteService {
       createTransporteDto.contratistaId,
     );
     const transporte = new Transporte(
-      createTransporteDto.startDate,
+      new Date(createTransporteDto.startDate),
       createTransporteDto.startPoint,
       createTransporteDto.endPoint,
       createTransporteDto.description,
@@ -54,7 +54,38 @@ export class TransporteService {
   }
 
   async update(id: number, updateTransporteDto: UpdateTransporteDto) {
-    return await `This action updates a #${id} transporte`;
+    const transporte = await this.findOneOrFail(id);
+    if (updateTransporteDto.startDate) {
+      transporte.setStartDate(new Date(updateTransporteDto.startDate));
+    }
+    if (updateTransporteDto.endDate) {
+      transporte.setEndDate(new Date(updateTransporteDto.endDate));
+    }
+    if (updateTransporteDto.startPoint) {
+      transporte.setStartPoint(updateTransporteDto.startPoint);
+    }
+    if (updateTransporteDto.endPoint) {
+      transporte.setEndPoint(updateTransporteDto.endPoint);
+    }
+    if (updateTransporteDto.description) {
+      transporte.setDescription(updateTransporteDto.description);
+    }
+    if (updateTransporteDto.contractorCost) {
+      transporte.setContractorCost(updateTransporteDto.contractorCost);
+    }
+    if (updateTransporteDto.contratistaId) {
+      const contratista = await this.contratistaService.findOneOrFail(
+        updateTransporteDto.contratistaId,
+      );
+      transporte.setContratista(contratista);
+    }
+    if (updateTransporteDto.cicloId) {
+      const ciclo = await this.cicloService.findOneOrFail(
+        updateTransporteDto.cicloId,
+      );
+      transporte.setCiclo(ciclo);
+    }
+    return await this.transporteRepository.save(transporte);
   }
 
   async remove(id: number) {

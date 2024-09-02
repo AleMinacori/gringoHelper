@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Put, Param, Delete } from '@nestjs/common';
 import { CicloImpuestoService } from './ciclo-impuesto.service';
 import { UpdateCicloImpuestoDto } from './dto/update-ciclo-impuesto.dto';
 
@@ -16,7 +16,7 @@ export class CicloImpuestoController {
     return this.cicloImpuestoService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateCicloImpuestoDto: UpdateCicloImpuestoDto,

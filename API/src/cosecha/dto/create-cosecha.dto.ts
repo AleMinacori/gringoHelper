@@ -1,8 +1,8 @@
-import { IsDate, IsNumber, IsPositive } from 'class-validator';
+import { IsDateString, IsNumber, IsPositive } from 'class-validator';
 
 export class CreateCosechaDto {
-  @IsDate()
-  startDate: Date;
+  @IsDateString()
+  startDate: string;
 
   @IsNumber()
   @IsPositive()

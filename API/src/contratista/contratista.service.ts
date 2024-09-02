@@ -19,6 +19,7 @@ export class ContratistaService {
       createContratistaDto.name,
       createContratistaDto.lastname,
       createContratistaDto.cbu,
+      createContratistaDto.alias,
     );
     return await this.contratistaRepository.save(contratista);
   }
@@ -40,7 +41,20 @@ export class ContratistaService {
   }
 
   async update(id: number, updateContratistaDto: UpdateContratistaDto) {
-    return await `This action updates a #${id} contratista`;
+    const contratista = await this.findOneOrFail(id);
+    if (updateContratistaDto.name) {
+      contratista.setName(updateContratistaDto.name);
+    }
+    if (updateContratistaDto.lastname) {
+      contratista.setLastname(updateContratistaDto.lastname);
+    }
+    if (updateContratistaDto.cbu) {
+      contratista.setCbu(updateContratistaDto.cbu);
+    }
+    if (updateContratistaDto.alias) {
+      contratista.setAlias(updateContratistaDto.alias);
+    }
+    return await this.contratistaRepository.save(contratista);
   }
 
   async remove(id: number) {

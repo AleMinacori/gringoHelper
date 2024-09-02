@@ -27,7 +27,7 @@ export class CosechaService {
     );
 
     const cosecha = new Cosecha(
-      createCosechaDto.startDate,
+      new Date(createCosechaDto.startDate),
       createCosechaDto.humidity,
       createCosechaDto.tons,
       createCosechaDto.contractorCost,
@@ -54,7 +54,35 @@ export class CosechaService {
   }
 
   async update(id: number, updateCosechaDto: UpdateCosechaDto) {
-    return await `This action updates a #${id} cosecha`;
+    const cosecha = await this.findOneOrFail(id);
+    if (updateCosechaDto.startDate) {
+      cosecha.setStartDate(new Date(updateCosechaDto.startDate));
+    }
+    if (updateCosechaDto.endDate) {
+      cosecha.setEndDate(new Date(updateCosechaDto.endDate));
+    }
+    if (updateCosechaDto.humidity) {
+      cosecha.setHumidity(updateCosechaDto.humidity);
+    }
+    if (updateCosechaDto.tons) {
+      cosecha.setTons(updateCosechaDto.tons);
+    }
+    if (updateCosechaDto.contractorCost) {
+      cosecha.setContractorCost(updateCosechaDto.contractorCost);
+    }
+    if (updateCosechaDto.contratistaId) {
+      const contratista = await this.contratistaService.findOneOrFail(
+        updateCosechaDto.contratistaId,
+      );
+      cosecha.setContratista(contratista);
+    }
+    if (updateCosechaDto.cicloId) {
+      const ciclo = await this.cicloService.findOneOrFail(
+        updateCosechaDto.cicloId,
+      );
+      cosecha.setCiclo(ciclo);
+    }
+    return await this.cosechaRepository.save(cosecha);
   }
 
   async remove(id: number) {

@@ -25,13 +25,13 @@ export class Ciclo {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ default: null })
   startDate: Date;
 
-  @Column()
+  @Column({ default: null })
   endDate: Date;
 
-  @Column()
+  @Column({ default: '' })
   state: string;
 
   @OneToMany(() => Siembra, (siembra) => siembra.ciclo)

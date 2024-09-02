@@ -13,10 +13,10 @@ export class Cosecha {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: null })
   startDate: Date;
 
-  @Column()
+  @Column({ default: null })
   endDate: Date;
 
   @Column()
@@ -50,6 +50,34 @@ export class Cosecha {
     this.tons = tons;
     this.contractorCost = contractorCost;
     this.contratista = contratista;
+    this.ciclo = ciclo;
+  }
+
+  public setStartDate(startDate: Date) {
+    this.startDate = startDate;
+  }
+
+  public setEndDate(endDate: Date) {
+    this.endDate = endDate;
+  }
+
+  public setHumidity(humidity: number) {
+    this.humidity = humidity;
+  }
+
+  public setTons(tons: number) {
+    this.tons = tons;
+  }
+
+  public setContractorCost(contractorCost: number) {
+    this.contractorCost = contractorCost;
+  }
+
+  public setContratista(contratista: Contratista) {
+    this.contratista = contratista;
+  }
+
+  public setCiclo(ciclo: Ciclo) {
     this.ciclo = ciclo;
   }
 }
