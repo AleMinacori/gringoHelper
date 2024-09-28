@@ -1,2 +1,6 @@
-res://MainMenu.tscn
 res://unselected_grass.tres
+res://Components/Sidebar.tscn
+res://Components/Content.tscn
+res://Components/layout.tscn
+res://LoteForm.gd
+res://Components/sidebar.gd

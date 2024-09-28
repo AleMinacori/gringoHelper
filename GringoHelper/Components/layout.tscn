@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://tltpyk8ahrbc"]
+
+[ext_resource type="PackedScene" uid="uid://r1bs342r4216" path="res://Components/Sidebar.tscn" id="1_1v68c"]
+[ext_resource type="PackedScene" uid="uid://cexqy3net8pmx" path="res://Components/Content.tscn" id="2_4pi8s"]
+
+[node name="Layout" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sidebar" parent="HBoxContainer" instance=ExtResource("1_1v68c")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="Content" parent="HBoxContainer" instance=ExtResource("2_4pi8s")]
+layout_mode = 2
+size_flags_horizontal = 3

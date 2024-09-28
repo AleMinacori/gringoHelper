@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://16yqbon5ompn"]
+
+[ext_resource type="Texture2D" uid="uid://b6s8x0t4o5dlr" path="res://icon.svg" id="1_fywrn"]
+[ext_resource type="Script" path="res://Test/Sprite2D.gd" id="2_p5y3x"]
+[ext_resource type="Script" path="res://Test/Form.gd" id="3_ah8vb"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(641, 336)
+texture = ExtResource("1_fywrn")
+script = ExtResource("2_p5y3x")
+
+[node name="Form" type="VBoxContainer" parent="."]
+offset_left = 33.0
+offset_top = 79.0
+offset_right = 106.0
+offset_bottom = 204.0
+scale = Vector2(3, 3)
+script = ExtResource("3_ah8vb")
+
+[node name="Nombre" type="LineEdit" parent="Form"]
+layout_mode = 2
+placeholder_text = "Nombre"
+alignment = 1
+expand_to_text_length = true
+
+[node name="Area" type="LineEdit" parent="Form"]
+layout_mode = 2
+placeholder_text = "Area"
+alignment = 1
+expand_to_text_length = true
+
+[node name="Button" type="Button" parent="Form"]
+layout_mode = 2
+text = "Crear"
+
+[node name="OptionButton" type="OptionButton" parent="Form"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 189.0
+offset_top = 98.0
+offset_right = 229.0
+offset_bottom = 138.0
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="Form/Button" to="Form" method="_on_button_pressed"]
