@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://16yqbon5ompn"]
+[gd_scene load_steps=6 format=3 uid="uid://16yqbon5ompn"]
 
-[ext_resource type="Texture2D" uid="uid://b6s8x0t4o5dlr" path="res://icon.svg" id="1_fywrn"]
+[ext_resource type="Texture2D" uid="uid://b6s8x0t4o5dlr" path="res://Test/icon.svg" id="1_fywrn"]
 [ext_resource type="Script" path="res://Test/Sprite2D.gd" id="2_p5y3x"]
 [ext_resource type="Script" path="res://Test/Form.gd" id="3_ah8vb"]
+[ext_resource type="Script" path="res://Scenes/toDelete.gd" id="5_4h3kc"]
+[ext_resource type="PackedScene" uid="uid://cr8vp416m406q" path="res://Utils/API/API.tscn" id="5_lx5as"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -47,4 +49,13 @@ offset_bottom = 138.0
 [node name="Button" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 
+[node name="Button" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "API"
+script = ExtResource("5_4h3kc")
+
+[node name="Api" parent="." instance=ExtResource("5_lx5as")]
+
 [connection signal="pressed" from="Form/Button" to="Form" method="_on_button_pressed"]
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

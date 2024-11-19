@@ -1,4 +1,4 @@
-class_name Form extends VBoxContainer
+class_name Forma extends VBoxContainer
 
 @onready var nombre :LineEdit = $Nombre
 @onready var area :LineEdit = $Area

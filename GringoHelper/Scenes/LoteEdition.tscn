@@ -1,25 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwvxi5mqbiujd"]
+[gd_scene load_steps=5 format=3 uid="uid://dwvxi5mqbiujd"]
 
-[ext_resource type="Script" path="res://MainScripts/LoteEdition.gd" id="1_u0q8k"]
-[ext_resource type="Script" path="res://MainScripts/Grid.gd" id="2_jayqm"]
-[ext_resource type="Script" path="res://MainScripts/Camera.gd" id="3_da6jb"]
-[ext_resource type="Script" path="res://LoteForm.gd" id="4_ky7rv"]
-[ext_resource type="Script" path="res://MainScripts/HTTP_TEST.gd" id="4_ty05l"]
+[ext_resource type="Script" path="res://LoteEditionScripts/LoteEdition.gd" id="1_mv1yy"]
+[ext_resource type="Script" path="res://LoteEditionScripts/Grid.gd" id="2_obbv2"]
+[ext_resource type="Script" path="res://LoteEditionScripts/Camera.gd" id="3_04dd1"]
+[ext_resource type="Script" path="res://LoteEditionScripts/LoteForm.gd" id="4_7uhtl"]
 
 [node name="LoteEdition" type="Node2D"]
-script = ExtResource("1_u0q8k")
+script = ExtResource("1_mv1yy")
 
 [node name="Grid" type="Node2D" parent="."]
 top_level = true
 z_index = 1
 position = Vector2(357, 84)
-script = ExtResource("2_jayqm")
+script = ExtResource("2_obbv2")
 height = 20
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
 anchor_mode = 0
-script = ExtResource("3_da6jb")
+script = ExtResource("3_04dd1")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 offset = Vector2(2.08165e-12, 2.08165e-12)
@@ -30,7 +29,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("4_ky7rv")
+script = ExtResource("4_7uhtl")
 
 [node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoteForm"]
 layout_mode = 0
@@ -71,21 +70,9 @@ text = "Aceptar"
 layout_mode = 2
 text = "Previsualizar"
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
-[node name="HTPP_TEST" type="Button" parent="."]
-visible = false
-offset_left = 33.0
-offset_top = 37.0
-offset_right = 138.0
-offset_bottom = 68.0
-text = "Lote"
-script = ExtResource("4_ty05l")
-
 [connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/CrearLote" to="Grid" method="_on_crear_lote_pressed"]
 [connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/CrearLote" to="CanvasLayer/LoteForm" method="_on_crear_lote_pressed"]
 [connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer/Cancelar" to="CanvasLayer/LoteForm" method="_on_cancelar_pressed"]
 [connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer/Aceptar" to="Grid" method="_on_aceptar_pressed"]
 [connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/VBoxContainer/Aceptar" to="CanvasLayer/LoteForm" method="_on_aceptar_pressed"]
 [connection signal="pressed" from="CanvasLayer/LoteForm/HBoxContainer/Previsualizar" to="Grid" method="_on_previsualizar_pressed"]
-[connection signal="request_completed" from="HTTPRequest" to="HTPP_TEST" method="_on_request_completed"]

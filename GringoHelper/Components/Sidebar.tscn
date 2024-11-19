@@ -18,51 +18,61 @@ anchor_bottom = 1.0
 grow_vertical = 2
 
 [node name="Campos" type="Button" parent="OptionContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Campos"
 
 [node name="Ciclos" type="Button" parent="OptionContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Ciclos"
 
 [node name="Granos" type="Button" parent="OptionContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Granos"
 
 [node name="Productos" type="Button" parent="OptionContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Productos"
 
 [node name="Tratamientos" type="Button" parent="OptionContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Tratamientos"
 
 [node name="Contratistas" type="Button" parent="OptionContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Contratistas"
 
 [node name="Impuestos" type="Button" parent="OptionContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Impuestos"
 
 [node name="Clima" type="Button" parent="OptionContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Clima"
 
 [node name="Mercado" type="Button" parent="OptionContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Mercado"
 
 [node name="Salir" type="Button" parent="OptionContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "Salir"

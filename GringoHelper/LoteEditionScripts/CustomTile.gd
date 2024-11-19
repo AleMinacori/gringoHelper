@@ -4,7 +4,7 @@ class_name CustomTile extends Button
 @export var asigned = false
 @export var group: int
  
-const UNSELECTED_GRASS = preload("res://unselected_grass.tres")
+const UNSELECTED_GRASS = preload("res://Assets/unselected_grass.tres")
 
 func _init(arg):
 	id = arg
