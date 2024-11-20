@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://tltpyk8ahrbc"]
+[gd_scene load_steps=4 format=3 uid="uid://tltpyk8ahrbc"]
 
 [ext_resource type="PackedScene" uid="uid://r1bs342r4216" path="res://Components/Sidebar.tscn" id="1_1v68c"]
+[ext_resource type="Script" path="res://Components/layout.gd" id="1_ofnvg"]
 [ext_resource type="PackedScene" uid="uid://cexqy3net8pmx" path="res://Components/Content.tscn" id="2_4pi8s"]
 
 [node name="Layout" type="Control"]
@@ -14,6 +15,7 @@ offset_right = -32.0
 offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ofnvg")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
