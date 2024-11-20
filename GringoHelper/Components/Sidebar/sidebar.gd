@@ -1,7 +1,7 @@
 class_name Sidebar
 extends Control
 
-const options = [
+const OPTIONS = [
 	'Campos',
 	'Ciclos',
 	'Granos',
@@ -16,10 +16,12 @@ const options = [
 
 @export var optionSelected: String = ''
 
+signal _option_selected
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var optionContainer = get_child(0)
-	for option in options:
+	for option in OPTIONS:
 		var optionButton = Button.new()
 		optionButton.text = option
 		optionButton.name = option
@@ -39,4 +41,5 @@ func handle_pressed(name: String) -> void:
 		optionSelected = ''
 	else:
 		optionSelected = name
+	_option_selected.emit()
 # https://docs.godotengine.org/en/stable/tutorials/best_practices/scene_organization.html

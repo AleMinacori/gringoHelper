@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://tltpyk8ahrbc"]
 
-[ext_resource type="PackedScene" uid="uid://r1bs342r4216" path="res://Components/Sidebar.tscn" id="1_1v68c"]
-[ext_resource type="Script" path="res://Components/layout.gd" id="1_ofnvg"]
-[ext_resource type="PackedScene" uid="uid://cexqy3net8pmx" path="res://Components/Content.tscn" id="2_4pi8s"]
+[ext_resource type="PackedScene" uid="uid://r1bs342r4216" path="res://Components/Sidebar/sidebar.tscn" id="1_1v68c"]
+[ext_resource type="Script" path="res://Components/Layout/layout.gd" id="1_ofnvg"]
+[ext_resource type="PackedScene" uid="uid://cexqy3net8pmx" path="res://Components/Content/content.tscn" id="2_4pi8s"]
 
 [node name="Layout" type="Control"]
 layout_mode = 3
