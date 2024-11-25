@@ -28,5 +28,3 @@ func entered_listener():
 				self.set_pressed(true)
 			else:
 				self.set_pressed(false)
-
-

@@ -7,25 +7,42 @@ class_name Api extends HTTPRequest
 const DOMAIN = 'http://localhost:3000/'
 const HEADERS = ["Content-Type: application/json"]
 
-func _on_send_request(path: String, method: String = 'GET', body = null):
+signal _on_request_success
+
+var result
+var response_code
+var headers
+var body
+
+func _list(path: String):
+	_on_send_request(path, HTTPClient.METHOD_GET)
+
+func _create(path: String, body):
+	_on_send_request(path, HTTPClient.METHOD_POST, body)
+
+func _update(path: String, body):
+	_on_send_request(path, HTTPClient.METHOD_PUT, body)
+
+func _delete(path: String, body):
+	_on_send_request(path, HTTPClient.METHOD_DELETE, body)
+
+func _on_send_request(path: String, method, body = null):
 	var url = DOMAIN + path
 	var data = null
 	if body:
 		data = JSON.stringify(body)
-	match method:
-		'GET':
-			print('get method', url)
-			http_request.request(url, HEADERS, HTTPClient.METHOD_GET)
-		'POST':
-			print('post method')
-			http_request.request(url, HEADERS, HTTPClient.METHOD_POST, data)
-		'PUT':
-			print('put method')
-			http_request.request(url, HEADERS, HTTPClient.METHOD_PUT, data)
-		'DELETE':
-			print('delete method')
-			http_request.request(url, HEADERS, HTTPClient.METHOD_DELETE, data)
-			
+		http_request.request(url, HEADERS, method, data)
+	else:
+		http_request.request(url, HEADERS, method)
 
-func _on_request_completed(result, response_code, headers, body):
-	print(body.get_string_from_utf8()) # Replace with function body.
+	result = ''
+	response_code = ''
+	headers = ''
+	body = ''
+
+func _on_request_completed(_result, _response_code, _headers, _body):
+	result = _result
+	response_code = _response_code
+	headers = _headers
+	body = JSON.parse_string(_body.get_string_from_utf8())
+	_on_request_success.emit()

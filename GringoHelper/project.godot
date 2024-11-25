@@ -12,7 +12,7 @@ config_version=5
 
 config/name="GringoHelper"
 run/main_scene="res://Scenes/LoteEdition.tscn"
-config/features=PackedStringArray("4.2", "Forward Plus")
+config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Test/icon.svg"
 
 [display]

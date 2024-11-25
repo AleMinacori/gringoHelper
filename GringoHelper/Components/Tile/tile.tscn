@@ -22,8 +22,10 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="PanelContainer" type="PanelContainer" parent="Button/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Button/VBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Button/VBoxContainer"]
 layout_mode = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

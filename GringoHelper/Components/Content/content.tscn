@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cexqy3net8pmx"]
+[gd_scene load_steps=3 format=3 uid="uid://cexqy3net8pmx"]
 
 [ext_resource type="Script" path="res://Components/Content/content.gd" id="1_cvopx"]
+[ext_resource type="PackedScene" uid="uid://c082n4cs6hk50" path="res://Components/Content/content_campo.tscn" id="2_361el"]
 
 [node name="Content" type="Control"]
 layout_mode = 3
@@ -35,6 +36,10 @@ layout_mode = 2
 [node name="BodyContainer" type="VBoxContainer" parent="PanelContainer/MainContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="ContentCampo" parent="PanelContainer/MainContainer/BodyContainer" instance=ExtResource("2_361el")]
+layout_mode = 2
+campos = null
 
 [node name="FooterContainer" type="HBoxContainer" parent="PanelContainer/MainContainer"]
 layout_mode = 2

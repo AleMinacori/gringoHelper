@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://c082n4cs6hk50"]
+
+[ext_resource type="Script" path="res://Components/Content/content_campo.gd" id="1_pgbv1"]
+[ext_resource type="PackedScene" uid="uid://b7vxdvdtwe3w5" path="res://Components/TileBoard/tile_board.tscn" id="2_yhfo8"]
+
+[node name="ContentCampo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pgbv1")
+
+[node name="TileBoard" parent="." instance=ExtResource("2_yhfo8")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
