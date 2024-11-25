@@ -1,7 +1,7 @@
 class_name Content
 extends Control
 
-@onready var title = $PanelContainer/MainContainer/Title
+@onready var title = $PanelContainer/MainContainer/HeaderContainer/Title
 
 const OPTIONS = [
 	'Campos',
@@ -13,7 +13,6 @@ const OPTIONS = [
 	'Impuestos',
 	'Clima',
 	'Mercado',
-	'Salir'
 ]
 
 func _on_option_selected(optionSelected):
