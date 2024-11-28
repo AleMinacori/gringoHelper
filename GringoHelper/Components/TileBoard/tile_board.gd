@@ -11,9 +11,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func _add_tile(data: Dictionary):
+func _add_tile(value: String, text: String, image: String):
 	var tile_scene = load("res://Components/Tile/tile.tscn")
 	var tile = tile_scene.instantiate()
-	tile._init(data.text, data.image)
+	tile._set_properties(value, text, image)
 	self.add_child(tile)
 	

@@ -1,17 +1,25 @@
-extends Control
+class_name ContentCampo extends Control
 
 @onready var tile_board = $TileBoard
+@onready var form = $FormCampo
+
 var campos = []
+var campo_selected
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	tile_board._add_tile({'text': 'hola', 'image': "res://Assets/img/icon-godot.svg"})
-	pass # Replace with function body.
+func _ready():
+	form.hide()
 
+func _set_campos_to_list(_campos):
+	campos = _campos
+	for campo in campos:
+		tile_board._add_tile(str(campo.id), campo.name, campo.image)
+	tile_board._add_tile('0', 'Nuevo', "res://Assets/img/icon-godot.svg")
+	for tile in tile_board.get_children(false):
+		tile.connect("pressed", _on_campo_selected.bind(tile.value))
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-func _set
+func _on_campo_selected(id):
+	tile_board.hide()
+	if (id == '0'):
+		form.show()
+	else:
+		print(id)

@@ -34,7 +34,6 @@ func _on_send_request(path: String, method, body = null):
 		http_request.request(url, HEADERS, method, data)
 	else:
 		http_request.request(url, HEADERS, method)
-
 	result = ''
 	response_code = ''
 	headers = ''

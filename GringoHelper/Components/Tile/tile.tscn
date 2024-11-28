@@ -2,30 +2,16 @@
 
 [ext_resource type="Script" path="res://Components/Tile/tile.gd" id="1_tmexw"]
 
-[node name="Tile" type="Control"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 3
+[node name="Tile" type="Button"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+icon_alignment = 1
+vertical_icon_alignment = 0
 script = ExtResource("1_tmexw")
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Button"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TextureRect" type="TextureRect" parent="Button/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Button/VBoxContainer"]
-layout_mode = 2
-
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
